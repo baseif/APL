@@ -19,7 +19,7 @@ $this->breadcrumbs = array(
         <?php
         $this->widget(
                 'booster.widgets.TbPanel', array(
-            'title' => 'Add Yourself As A Client',
+            'title' => 'Add Yourself As A Client-user',
             'context' => 'primary',
             'headerIcon' => 'user',
             'content' => 'You, being a Client............., ',
@@ -77,7 +77,19 @@ $this->breadcrumbs = array(
  <br /><?php //echo CHtml::image(Yii::app()->request->baseUrl . '/images/tableau.jpg', ''); ?>
 </p>
 <p>
-    <a href="<?php echo Yii::app()->request->baseUrl.'/uploads/termsofuseapl.pdf' ?>" target="_blank"><?php echo  Yii::t('app','Download the terms of use');?></a>   
+    
+    
+ <?php echo $form->checkboxListGroup(
+			$client,
+			'termofuse',
+			array(
+				'widgetOptions' => array(
+					'data' => array(
+						'Yes, I agree the term of use',
+					)
+				)
+			)
+		); ?>  
     
 </p>
 
@@ -126,10 +138,12 @@ $this->breadcrumbs = array(
                     <div class="row">
                         <?php // echo $form->labelEx($model, 'username'); ?>
                         <?php
-                        echo $form->textFieldGroup($model, 'username', array('size' => 60, 'maxlength' => 255,
+                        echo $form->textFieldGroup($model, 'email', array('size' => 60, 'maxlength' => 255,
                             'wrapperHtmlOptions' => array('class' => 'col-sm-8',),
                         ));
                         ?>
+                        <?php // echo $form->error($model, 'email'); ?>
+                       
                         <?php // echo $form->error($model, 'username');  ?>
 
     <!--                            <span class="label label-info"    
@@ -157,14 +171,13 @@ $this->breadcrumbs = array(
                         ?>
                         <?php // echo $form->error($model, 'verifyPassword'); ?>
 
-
-                        <?php //echo $form->labelEx($model, 'email'); ?>
-                        <?php
-                        echo $form->textFieldGroup($model, 'email', array('size' => 60, 'maxlength' => 255,
+ <?php
+                        echo $form->textFieldGroup($model, 'username', array('size' => 60, 'maxlength' => 255,
                             'wrapperHtmlOptions' => array('class' => 'col-sm-8',),
                         ));
                         ?>
-                        <?php // echo $form->error($model, 'email'); ?>
+                        <?php //echo $form->labelEx($model, 'email'); ?>
+                        
 
 
 

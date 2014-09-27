@@ -219,7 +219,7 @@ return array(
        // ),
         // uncomment the following to use a MySQL database
         'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=presslist',
+            'connectionString' => 'mysql:host=localhost;dbname=africanpress_db_1',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => 'root',

@@ -1,25 +1,25 @@
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.tokeninput.js"></script>
 
-<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/token-input.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/token-input-facebook.css" type="text/css" />
-<script>
+<script type="text/javascript">
+
+function selectCheckbox(eventcheck,allcheckbox){
 
 
-    function showMe(box) {
-
-        var chboxs = document.getElementById("freelanceactivity");
-        var vis = "none";
+        if ((document.getElementById(eventcheck).checked)) { // check select status
+//            
         
-            if (chboxs.checked) {
-                vis = "block";
-            }
-        document.getElementById(box).style.display = vis;
+            $('.'+allcheckbox).each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"               
+            });
+        } else {
+            $('.'+allcheckbox).each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+            });
+        }
+         
     }
 
 </script>
-<?php require_once 'js/autocomplete.php'; ?>
-<div id="update"></div>
+
 <?php
 /* @var $this ContactController */
 /* @var $model Contact */
@@ -89,18 +89,15 @@
                             )
                     );
                     ?>
-                    <?php // echo $form->textField($model,'contact_gender',array('size'=>1,'maxlength'=>1));   ?>
                     <?php echo $form->error($model, 'contact_gender'); ?>
                 </div>
 
-                <div class="row">
-
-
+                <div class="row col-sm-6">
                     <?php
                     echo $form->dropDownListGroup(
                             $categories, 'cat_title', array(
                         'wrapperHtmlOptions' => array(
-                            'class' => 'col-sm-5',
+                            'class' => 'col-sm-9',
                             'size' => '20',
                         ),
                         'widgetOptions' => array(
@@ -109,20 +106,28 @@
                             'htmlOptions' => array('multiple' => true, 'style' => 'height:100px'),
                     )));
                     ?>
-
-
                 </div>   
 
-
-
-                <div class="row">
-
-
+                <div class="row col-sm-6">
+                    <?php
+                    echo $form->dropDownListGroup(
+                            $function, 'function_id', array(
+                        'wrapperHtmlOptions' => array(
+                            'class' => 'col-sm-9',
+                        ),
+                        'widgetOptions' => array(
+                            'data' => CHtml::listData(Functions::model()->findAll(), 'function_id', 'function_title' ),
+                            'htmlOptions' => array('multiple' => true, 'style' => 'height:120px'),
+                    )));
+                    ?>
+                </div>
+                
+                <div class="row col-sm-6">
                     <?php
                     echo $form->dropDownListGroup(
                             $iso_language, 'lang_iso', array(
                         'wrapperHtmlOptions' => array(
-                            'class' => 'col-sm-5',
+                            'class' => 'col-sm-9',
                         ),
                         'widgetOptions' => array(
                             'data' => CHtml::listData(IsoLanguage::model()->findAll(), 'lang_iso', 'language'
@@ -132,53 +137,49 @@
                     ?>
 
 
-                </div> 
-
-
-
-                
-
-                <button id="add" type="button" class="btn btn-info">Add Company</button>
-                <div id="items">
-                    <div>
-                        <div class="table-responsive">
-                            <input type="hidden" name="nbfield" id="nbfield" value="1" />
-                            <table class="table table-condensed">
-                                <tr><td><b>Company</b> 
-                                        <input type="text" name="company1" id="inputcompany1"></td>
-                                    <td ><b>Country</b> <input type="text" name="inputcountry1" id="inputcountry1"></td>
-                                    <td><b>Functions</b> <input type="text" name="function1" id="inputfunction1"></td>
-                                    <td style=" width: 50%;"><b>Channels</b> <input type="text" name="inputchannel1" id="inputchannel1"></td>
-                                </tr></table>
-                        </div>
-                    </div>
                 </div>                
-                <br /><br />
-               <div class="row">
-
-                    <div class="col-sm-5 col-sm-9 checkbox">
-                        <label> <input type="checkbox" onclick="showMe('div1')" name="freelanceactivity" id="freelanceactivity" value="freelance" class="inputradio" />
-                       Freelance Activity?</label> 
-                    </div>
+                <div class="row col-sm-6">
+                    <?php
+                    echo $form->dropDownListGroup(
+                            $channel, 'channel_id', array(
+                        'wrapperHtmlOptions' => array(
+                            'class' => 'col-sm-9',
+                        ),
+                        'widgetOptions' => array(
+                            'data' => CHtml::listData(Channel::model()->findAll(), 'channel_id', 'channel_title'
+                            ),
+                            'htmlOptions' => array('multiple' => true, 'style' => 'height:120px'),
+                    )));
+                    ?>
                 </div>
                 
-                <div class="row">
-                <div id="div1" style="display:none">
-                    
-                     <div>
-                        <div class="table-responsive">
-                           
-                            <table class="table table-condensed">
+                
+                 <div class="row">
+                            <table width="100%">
+                                <tr><td><label><input style="" type="checkbox"  id="selectall" value="" name="allcountry" onClick="selectCheckbox('selectall','checkboxcountry')" />&nbsp;Select All</label></td></tr>
                                 <tr>
-                                    <td style=" width: 33%;"><b>Country</b> <input type="text" name="countryfreelance" id="countryfreelance"></td>
-                                    <td><b>Functions</b> <input type="text" name="functionfreelance" id="functionfreelance"></td>
-                                    <td align="left"><b>Channel</b> <input type="text" name="channelfreelance" id="channelfreelance"></td>
-                                </tr></table>
-                        </div>
-                    </div>
-                    
+                    <?php
+                    $georegion = GeoRegion::model()->GeoRegionAfrica();
+                    $i=0;
+                    foreach($georegion as $value){
+                        echo '<td valign="top" style="vertical-align:top;">
+                            <label>
+                        <input id="selectregion'.$i.'" class="checkboxcountry" onClick="selectCheckbox(\'selectregion'.$i.'\',\'checkbox'.$i.'\')" style="float:left; margin-right:5px"  type="checkbox" value="'.$value->geo_region_id.'" name="georegion[]" />
+                            '.$value->region_name.'</label>';
+                        $country = IsoCountry::model()->FindCountyByGeeoRegion($value->geo_region_id);
+                        echo '<br />';
+                        foreach($country as $c){
+                            echo '<label style="font-weight:normal;">
+                                <input style="" type="checkbox" class="checkboxcountry checkbox'.$i.'" value="'.$c->country_iso.'" name="country[]" />
+                                &nbsp;&nbsp;'.$c->country_name.'</label>';
+                        }
+                        echo '</td>';
+                        $i++;
+                    }
+                    ?>
+                             </tr></table>
                 </div>
-                </div>
+                
                 
                 
             </div> 
@@ -199,21 +200,21 @@
         </div>
         <div id="Advert2" class="panel-collapse collapse">
             <div class="panel-body">
-                <div class="row col-sm-6">
+                <div class="row">
                     <?php //echo $form->labelEx($model,'contact_adress');     ?>
                     <?php
                     echo $form->textFieldGroup($model, 'contact_adress', array('size' => 60, 'maxlength' => 255,
-                        'wrapperHtmlOptions' => array('class' => 'col-sm-10',),
+                        'wrapperHtmlOptions' => array('class' => 'col-sm-6',),
                     ));
                     ?>
                     <?php echo $form->error($model, 'contact_adress'); ?>
                 </div>
 
-                <div class="col-sm-13 row">
+                <div class="row">
                     <?php //echo $form->labelEx($model,'contact_address_nr');     ?>
                     <?php
                     echo $form->textFieldGroup($model, 'contact_address_nr', array('size' => 60, 'maxlength' => 255,
-                        'wrapperHtmlOptions' => array('class' => 'col-sm-2',),
+                        'wrapperHtmlOptions' => array('class' => 'col-sm-6',),
                     ));
                     ?>
                     <?php echo $form->error($model, 'contact_address_nr'); ?>
@@ -229,7 +230,17 @@
                     <?php echo $form->error($model, 'contact_address_addon'); ?>
                 </div>
 
+<div class="row">
+                    <?php //echo $form->labelEx($model,'contact_city');   ?>
+                    <?php
+                    echo $form->textFieldGroup($model, 'contact_city', array('size' => 60, 'maxlength' => 255,
+                        'wrapperHtmlOptions' => array('class' => 'col-sm-6',),
+                    ));
+                    ?>
+                    <?php echo $form->error($model, 'contact_city'); ?>
 
+
+                </div>
 
 
                 <div class="row">
@@ -260,18 +271,8 @@
 
 
 
-                <div class="row">
-                    <?php //echo $form->labelEx($model,'contact_city');   ?>
-                    <?php
-                    echo $form->textFieldGroup($model, 'contact_city', array('size' => 60, 'maxlength' => 255,
-                        'wrapperHtmlOptions' => array('class' => 'col-sm-6',),
-                    ));
-                    ?>
-                    <?php echo $form->error($model, 'contact_city'); ?>
-
-
-                </div>
-                <br />
+                
+             
 
             </div>
         </div>

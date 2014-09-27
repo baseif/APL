@@ -27,7 +27,7 @@ class ClientController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'create'),
+                'actions' => array('index', 'create','companyaccount'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -573,6 +573,22 @@ class ClientController extends Controller {
         echo '<input type="hidden" name="credit_price" id="pricevalue" value="'.$price.'" />';
         echo $price.' € <br />';
         echo $dollar.' $';
+        
+    }
+    
+    
+    
+     public function  actionCompanyaccount(){
+        
+         $country = IsoCountry::model()->findByPk($_POST['id_country']);
+        if($country->geo_region_id == 11 or $country->geo_region_id == 12)
+         echo '<div class="form-group">
+             <label for="Client_porfile_camp_account" class="col-sm-3 control-label">Company VAT Number</label>
+             <div class="col-sm-5 col-sm-9">
+             <input type="text" maxlength="255" id="Client_porfile_camp_account" name="Client[porfile_camp_account]" placeholder="Company VAT Number" class="form-control">
+             <div style="display:none" id="Client_porfile_camp_account_em_" class="help-block error">
+             </div></div></div>';
+         
         
     }
 

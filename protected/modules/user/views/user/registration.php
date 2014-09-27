@@ -64,13 +64,19 @@ $this->breadcrumbs = array(
             </div>
             <div id="Advert" class="panel-collapse collapse in">
                 <div class="panel-body">
-                            <div class="row">
+                            
                                 <?php // echo $form->labelEx($model, 'username');  ?>
+                                
+                                <div class="row">
+                                <?php //echo $form->labelEx($model, 'email'); ?>
                                 <?php
-                                echo $form->textFieldGroup($model, 'username', array('size' => 60, 'maxlength' => 255,
+                                echo $form->textFieldGroup($model, 'email', array('size' => 60, 'maxlength' => 255,
                                     'wrapperHtmlOptions' => array('class' => 'col-sm-5',),
                                 ));
                                 ?>
+                            </div> 
+                                
+                    <div class="row">
                                 <?php
                                 echo $form->passwordFieldgROUP($model, 'password', array('size' => 60, 'maxlength' => 255,
                                     'wrapperHtmlOptions' => array('class' => 'col-sm-5',),
@@ -89,22 +95,21 @@ $this->breadcrumbs = array(
                                 ?>
     <?php // echo $form->error($model, 'verifyPassword'); ?>
                             </div>
-
-
-                            <div class="row">
-                                <?php //echo $form->labelEx($model, 'email'); ?>
-                                <?php
-                                echo $form->textFieldGroup($model, 'email', array('size' => 60, 'maxlength' => 255,
+                    <div class="row">
+                     <?php
+                                echo $form->textFieldGroup($model, 'username', array('size' => 60, 'maxlength' => 255,
                                     'wrapperHtmlOptions' => array('class' => 'col-sm-5',),
                                 ));
                                 ?>
-  </div> 
+
+
+                            
 
             </div>
         </div>
     </div>
 
-            <?php $this->renderPartial('/../../../views/contact/_form', array('model' => $contact, 'form' => $form,'categories' => $categories, 'iso_language'=>$iso_language, 'company'=>$company)); ?>
+            <?php $this->renderPartial('/../../../views/contact/_form', array('model' => $contact, 'form' => $form,'categories' => $categories, 'iso_language'=>$iso_language, 'company'=>$company, 'channel'=>$channel, 'function'=>$function)); ?>
             <!--//('/../../../views/contact/_form'-->
 
 

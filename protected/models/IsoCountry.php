@@ -125,6 +125,12 @@ class IsoCountry extends CActiveRecord
             return $country;
     }
     
+    public function FindCountyByGeeoRegion($id)
+    {
+            $country = IsoCountry::model()->findAllBySql('select * from iso_country where geo_region_id ='.$id.' order by country_name'); 
+            return $country;
+    }
+    
     public function behaviors() {
         return array(
             'activerecord-relation' => array(

@@ -69,6 +69,8 @@ class RegistrationClientController extends Controller {
                             $message = new YiiMailMessage;
                             $message->setBody(
                                     UserModule::t("
+                                        Hello<br /><br />
+                                        Thanks for your interest in the Africa Press List and we are glad to welcome you!<br /><br />
 This email has been sent from http://www.africapresslist.com/ <br /><br />
 You have received this email because this email address
 was used during registration for our site.
@@ -84,7 +86,7 @@ To activate your account, simply click on the following link: <br /><br />
 {activation_url} <br /><br />
 (Some email client users may need to copy and paste the link into your web
 browser)<br />
-                                           <br /> Thank you for registering ."
+                                           <br /> Thank you for registering .<br />The Africa Press List- Team"
                                             , array('{activation_url}' => $activation_url))
                                     , 'text/html');
                             $message->subject = UserModule::t("Registration at {site_name}", array('{site_name}' => Yii::app()->name));
@@ -118,7 +120,7 @@ browser)<br />
                             } elseif (Yii::app()->controller->module->loginNotActiv) {
                                 Yii::app()->user->setFlash('registration', UserModule::t("Thank you for your registration. Please check your email or login."));
                             } else {
-                                Yii::app()->user->setFlash('registration', UserModule::t("Thank you for your registration. Please check your email."));
+                                Yii::app()->user->setFlash('registration', UserModule::t("We have sent you an email to validate your email. When you click the url-link in the email you can complete the registration process and start with using the Africa Press List."));
                                 if (Yii::app()->session['type'] == 2) {
 ///
                                     $user = Client::model()->findByPk(Yii::app()->session['id']);
@@ -251,6 +253,8 @@ browser)<br />
                 $message = new YiiMailMessage;
                 $message->setBody(
                         UserModule::t("
+                            Hello<br /><br />
+                                        Thanks for your interest in the Africa Press List and we are glad to welcome you!<br /><br />
 This email has been sent from http://www.africapresslist.com/ <br /><br />
 You have received this email because this email address
 was used during registration for our site.
@@ -266,7 +270,7 @@ To activate your account, simply click on the following link: <br /><br />
 {activation_url} <br /><br />
 (Some email client users may need to copy and paste the link into your web
 browser)<br />
-                                           <br /> Thank you for registering ."
+                                           <br /> Thank you for registering .<br />The Africa Press List- Team"
                                 , array('{activation_url}' => Yii::app()->session['activation_url']))
                         , 'text/html');
                 $message->subject = Yii::app()->session['subject'];

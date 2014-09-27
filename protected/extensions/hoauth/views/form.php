@@ -63,7 +63,7 @@ Yii::app()->session['obj'],-->
         -->        
         <?php $url = Yii::app()->createUrl('contact/session');    ?>
         <select style="background: #FEE;
-border-color: #C00;" id="type" name="type" onchange="sendData('type='+this.value,'<?php echo $url; ?>')">
+border-color: #C00;" id="type" name="type" onchange="sendData('type='+this.value,'<?php echo $url; ?>','user')">
             <option value="0" id="0"  selected="selected">Client</option>
             <option value="1" id="1">Journalist</option>
 

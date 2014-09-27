@@ -37,7 +37,7 @@
  * @property string $usetting_replyto_name
  * @property string $usetting_replyto_email
  * @property string $usetting_bounce_email
- *
+ * @property integer $termofuse
  * The followings are the available model relations:
  * @property Contact[] $contacts
  * @property CreditHistory[] $creditHistories
@@ -71,7 +71,7 @@ class Client extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('porfile_name_first, porfile_name_last,credittype ,porfile_phone, porfile_camp_name, porfile_camp_country, porfile_camp_email', 'required'),
+            array('porfile_name_first, porfile_name_last,credittype,termofuse ,porfile_phone, porfile_camp_name, porfile_camp_country, porfile_camp_email', 'required'),
             array('user_package_id, user_credits, porfile_address_nr, porfile_country, porfile_camp_country,porfile_camp_account,porfile_mobile,porfile_phone', 'numerical', 'integerOnly' => true),
             array('user_pass, porfile_address_addon, porfile_city, porfile_phone, porfile_mobile, porfile_camp_name, porfile_camp_function, porfile_camp_account, porfile_camp_email, porfile_camp_website, porfile_coc, usetting_sender_name, usetting_sender_email, usetting_replyto_name, usetting_replyto_email, usetting_bounce_email', 'length', 'max' => 255),
             array('profile_remarks', 'safe'),
@@ -122,9 +122,9 @@ class Client extends CActiveRecord
             'porfile_initials' => 'Initials',
             'porfile_name_first' => 'First Name',
             'porfile_name_last' => 'Last Name',
-            'porfile_address' => 'Address',
-            'porfile_address_nr' => 'Address Nr',
-            'porfile_address_addon' => ' Address Addon',
+            'porfile_address' => 'Street Address',
+            'porfile_address_nr' => 'Street Address Nr',
+            'porfile_address_addon' => 'Add On',
             'porfile_city' => 'City',
             'porfile_country' => ' Country',
             'porfile_phone' => 'Phone',
@@ -132,7 +132,7 @@ class Client extends CActiveRecord
             'porfile_camp_name' => ' Company Name',
             'porfile_camp_function' => 'Company Function',
             'porfile_camp_country' => 'Company Country',
-            'porfile_camp_account' => 'Company Account',
+            'porfile_camp_account' => 'Company VAT Number',
             'porfile_camp_email' => 'Company Email',
             'porfile_camp_website' => 'Company Website',
             'porfile_coc' => 'Chamber of commerce ',
@@ -142,7 +142,8 @@ class Client extends CActiveRecord
             'usetting_replyto_name' => ' Replyto Name',
             'usetting_replyto_email' => ' Replyto Email',
             'usetting_bounce_email' => ' Bounce Email',
-            'credittype' => '<div class="typeaccount">Subscription type</div>',
+            'credittype' => 'aaa',
+            'termofuse' => 'Term of use'
         );
     }
 

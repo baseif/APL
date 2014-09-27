@@ -4,7 +4,7 @@
  */
 
 $(document).ready(function() {
-    $('#selecctall').click(function(event) {  //on click 
+    $('#selectall').click(function(event) {  //on click 
         if (this.checked) { // check select status
             $('.checkbox1').each(function() { //loop through each checkbox
                 this.checked = true;  //select all checkboxes with class "checkbox1"               
@@ -59,8 +59,7 @@ function listcountry(param, page)
 
 
 
-function sendData(param, page)
-{
+function sendData(param, page,div){
 
     if (document.all) {
         //Internet Explorer
@@ -70,13 +69,8 @@ function sendData(param, page)
         //Mozilla
         var XhrObj = new XMLHttpRequest();
     }//fin else
-
-    //dÃ©finition de l'endroit d'affichage:
-
-    var content = document.getElementById("user");
-
+    var content = document.getElementById(div);
     XhrObj.open("POST", page);
-
     //Ok pour la page cible
     XhrObj.onreadystatechange = function() {
         if (XhrObj.readyState == 4 && XhrObj.status == 200)
@@ -84,8 +78,6 @@ function sendData(param, page)
     }
     XhrObj.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     XhrObj.send(param);
-
-
 
 }//fin fonction SendData
 

@@ -70,27 +70,10 @@ $this->menu=array(
         'enableAjaxValidation' => True,
     ));
     ?> 
-    
-    
-    
 	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
-
 	<?php  echo $form->errorSummary(array($model)); ?>
-
-
-	<div class="row">
-		<?php // echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textFieldGroup($model,'username',array('size'=>20,'maxlength'=>20,
-                            'wrapperHtmlOptions' => array('class' => 'col-sm-5',)
-                        ));?>
-		<?php   echo $form->error($model,'username'); ?>
-	</div>
-
-	<div class="row">
-		<?php // echo $form->labelEx($model,'email'); ?>
-            
-		<?php  
-              
+        	<div class="row">
+              <?php
                 if  ($USER_oauth==null)
                     
                 echo $form->textFieldGroup($model,'email',array('size'=>60,'maxlength'=>128,
@@ -110,19 +93,25 @@ $this->menu=array(
 					'htmlOptions' => array('disabled' => true)
 				)
 			)
-		); 
-                    
-                    
+		);      
                 }
-                
                 ?>
-            
-            
 		<?php echo $form->error($model,'email'); ?>
             
             
             
 	</div>
+        
+
+	<div class="row">
+		<?php // echo $form->labelEx($model,'username'); ?>
+		<?php echo $form->textFieldGroup($model,'username',array('size'=>20,'maxlength'=>20,
+                            'wrapperHtmlOptions' => array('class' => 'col-sm-5',)
+                        ));?>
+		<?php   echo $form->error($model,'username'); ?>
+	</div>
+
+
         
         
 <div class="row">

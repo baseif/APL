@@ -24,10 +24,11 @@ class RegistrationController extends Controller {
         $model = new RegistrationForm;
         //$profile = new Profile;
         $contact = new Contact;
-    $categories = new BusinessCategory;
-    $iso_language = new IsoLanguage;
-    $company = new Company;
-    
+        $categories = new BusinessCategory;
+        $iso_language = new IsoLanguage;
+        $company = new Company;
+        $channel = new RoleChannel;
+        $function = new Functions;
         
         // ajax validator
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'registration-form') {
@@ -224,7 +225,7 @@ browser)<br />
             }
             
             //$categories = BusinessCategory::model()->findAll();
-            $this->render('/user/registration', array('model' => $model, 'contact' => $contact, 'categories'=>$categories, 'iso_language'=>$iso_language, 'company'=>$company));
+            $this->render('/user/registration', array('model' => $model, 'contact' => $contact, 'categories'=>$categories, 'iso_language'=>$iso_language, 'company'=>$company, 'channel'=>$channel, 'function'=>$function));
         }
     }
     

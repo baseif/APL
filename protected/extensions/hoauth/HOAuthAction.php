@@ -458,6 +458,8 @@ class HOAuthAction extends CAction {
                             $message = new YiiMailMessage;
                             $message->setBody(
                                     UserModule::t("
+                                         Hello<br /><br />
+                                        Thanks for your interest in the Africa Press List and we are glad to welcome you!<br /><br />
 This email has been sent from http://www.africapresslist.com/ <br /><br />
 You have received this email because this email address
 was used during registration for our site.
@@ -473,7 +475,7 @@ To activate your account, simply click on the following link: <br /><br />
 {activation_url} <br /><br />
 (Some email client users may need to copy and paste the link into your web
 browser)<br />
-                                           <br /> Thank you for registering ."
+                                           <br /> Thank you for registering .<br />The Africa Press List- Team"
                                             , array('{activation_url}' => $activation_url))
                                     , 'text/html');
                             $message->subject = UserModule::t("Registration at {site_name}", array('{site_name}' => Yii::app()->name));

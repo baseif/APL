@@ -147,8 +147,8 @@
                             'items' => array(
                                 
                                 array('label' => Yii::t('app', 'Sign-Up'), 'items' => array(
-                                        array('label' => Yii::t('app', 'As Client'), 'url' => array('/user/registrationClient')),
-                                        array('label' => Yii::t('app', 'As Journalist'), 'url' => array('/user/registration')),
+                                        array('label' => Yii::t('app', 'As Client-User'), 'url' => array('/user/registrationClient')),
+                                        array('label' => Yii::t('app', 'As Journalist-Media'), 'url' => array('/user/registration')),
                                     )
                                     , 'visible' => Yii::app()->user->isGuest),
                                 array('label' => Yii::t('app', 'My Space'), 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),

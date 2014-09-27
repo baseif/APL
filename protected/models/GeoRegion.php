@@ -91,7 +91,7 @@ class GeoRegion extends CActiveRecord
         
         public function GeoRegionAfrica()
 	{
-             $georegion = GeoRegion::model()->findAllBySql('select * from geo_region where geo_region_id in(1,2,3,4,5)'); 
+             $georegion = GeoRegion::model()->findAllBySql('select * from geo_region where geo_region_id in(1,2,3,4,5) order by region_name'); 
             return $georegion;
         }
         

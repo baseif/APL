@@ -40,12 +40,13 @@
  * @property integer $profile
  * @property integer $status
  * @property integer $credittype
+ * @property integer $termofuse
  *
  * The followings are the available model relations:
  * @property Contact[] $contacts
  * @property CreditHistory[] $creditHistories
  * @property List[] $lists
- * @property Paypal transactions[] $paypal transactions
+ * @property PaypalTransactions[] $paypalTransactions
  * @property Press[] $presses
  * @property IsoCountry $porfileCampCountry
  * @property IsoCountry $porfileCountry
@@ -70,13 +71,13 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_pass, user_email, porfile_initials, porfile_name_first, porfile_name_last', 'required'),
-			array('user_package_id, user_credits, porfile_address_nr, porfile_country, porfile_camp_country, profile, status', 'numerical', 'integerOnly'=>true),
+			array('user_pass, user_email, porfile_initials, porfile_name_first, porfile_name_last, credittype, termofuse', 'required'),
+			array('user_package_id, user_credits, porfile_address_nr, porfile_country, porfile_camp_country, profile, status, credittype, termofuse', 'numerical', 'integerOnly'=>true),
 			array('user_pass, user_email, porfile_initials, porfile_name_first, porfile_name_last, porfile_address, porfile_address_addon, porfile_city, porfile_phone, porfile_mobile, porfile_camp_name, porfile_camp_function, porfile_camp_account, porfile_camp_email, porfile_camp_website, porfile_coc, usetting_sender_name, usetting_sender_email, usetting_replyto_name, usetting_replyto_email, usetting_bounce_email', 'length', 'max'=>255),
 			array('user_registered, user_verified, user_activity, user_deactivated, user_password_request, profile_remarks', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('user_id, user_package_id, user_pass, user_credits, user_registered, user_verified, user_activity, user_deactivated, user_password_request, user_email, porfile_initials, porfile_name_first, porfile_name_last, porfile_address, porfile_address_nr, porfile_address_addon, porfile_city, porfile_country, porfile_phone, porfile_mobile, porfile_camp_name, porfile_camp_function, porfile_camp_country, porfile_camp_account, porfile_camp_email, porfile_camp_website, porfile_coc, profile_remarks, usetting_sender_name, usetting_sender_email, usetting_replyto_name, usetting_replyto_email, usetting_bounce_email, profile, status', 'safe', 'on'=>'search'),
+			array('user_id, user_package_id, user_pass, user_credits, user_registered, user_verified, user_activity, user_deactivated, user_password_request, user_email, porfile_initials, porfile_name_first, porfile_name_last, porfile_address, porfile_address_nr, porfile_address_addon, porfile_city, porfile_country, porfile_phone, porfile_mobile, porfile_camp_name, porfile_camp_function, porfile_camp_country, porfile_camp_account, porfile_camp_email, porfile_camp_website, porfile_coc, profile_remarks, usetting_sender_name, usetting_sender_email, usetting_replyto_name, usetting_replyto_email, usetting_bounce_email, profile, status, credittype, termofuse', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -91,7 +92,7 @@ class User extends CActiveRecord
 			'contacts' => array(self::MANY_MANY, 'Contact', 'contact_client_blacklist(user_id, contact_id)'),
 			'creditHistories' => array(self::HAS_MANY, 'CreditHistory', 'ch_user'),
 			'lists' => array(self::HAS_MANY, 'List', 'list_user'),
-			'paypal transactions' => array(self::HAS_MANY, 'Paypal transactions', 'pp_user_id'),
+			'paypalTransactions' => array(self::HAS_MANY, 'PaypalTransactions', 'pp_user_id'),
 			'presses' => array(self::HAS_MANY, 'Press', 'press_user'),
 			'porfileCampCountry' => array(self::BELONGS_TO, 'IsoCountry', 'porfile_camp_country'),
 			'porfileCountry' => array(self::BELONGS_TO, 'IsoCountry', 'porfile_country'),
@@ -141,7 +142,8 @@ class User extends CActiveRecord
 			'usetting_bounce_email' => 'Usetting Bounce Email',
 			'profile' => 'Profile',
 			'status' => 'Status',
-                    'credittype' => 'Credittype',
+			'credittype' => 'Credittype',
+			'termofuse' => 'Termofuse',
 		);
 	}
 
@@ -198,6 +200,8 @@ class User extends CActiveRecord
 		$criteria->compare('usetting_bounce_email',$this->usetting_bounce_email,true);
 		$criteria->compare('profile',$this->profile);
 		$criteria->compare('status',$this->status);
+		$criteria->compare('credittype',$this->credittype);
+		$criteria->compare('termofuse',$this->termofuse);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

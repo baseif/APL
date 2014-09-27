@@ -7,7 +7,7 @@
 
 
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/glyphicon.js"></script>
-
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
 
 
 <div class="last"><br><br>
@@ -159,6 +159,17 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
                         </div>
                         <br>-->
                 </div>
+                
+                <div class="row">
+<?php // echo $form->labelEx($model, 'porfile_mobile');   ?>
+                            <?php
+                            echo $form->textFieldGroup($model, 'porfile_mobile', array('size' => 60, 'maxlength' => 255,
+                                'wrapperHtmlOptions' => array('class' => 'col-sm-5',),
+                            ));
+                            ?>
+                            <?php echo $form->error($model, 'porfile_mobile'); ?>
+                        </div>
+                
                 <br />
 
             </div>
@@ -189,21 +200,21 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
             <div id="item2" class="collapse accordion-group ">
                 <div class="accordion-inner">
                     <fieldset>-->
-                        <div class="row col-sm-6">
+                        <div class="row">
 <?php //echo $form->labelEx($model, 'porfile_address');   ?>
                             <?php
                             echo $form->textFieldGroup($model, 'porfile_address', array('size' => 60, 'maxlength' => 255,
-                                'wrapperHtmlOptions' => array('class' => 'col-sm-10',),
+                                'wrapperHtmlOptions' => array('class' => 'col-sm-5',),
                             ));
                             ?>
                             <?php echo $form->error($model, 'porfile_address'); ?>
                         </div>
 
-                        <div class="row col-sm-13 ">
+                        <div class="row">
 <?php //echo $form->labelEx($model, 'porfile_address_nr');    ?>
                             <?php
                             echo $form->textFieldGroup($model, 'porfile_address_nr', array('size' => 60, 'maxlength' => 255,
-                                'wrapperHtmlOptions' => array('class' => 'col-sm-2',),
+                                'wrapperHtmlOptions' => array('class' => 'col-sm-5',),
                             ));
                             ?>
                             <?php echo $form->error($model, 'porfile_address_nr'); ?>
@@ -232,23 +243,39 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
 
                         <div class="row">
                             <div class="col-sm-3 control-label" >
-<?php echo $form->labelEx($model, 'porfile_country'); ?></div>
+<?php //echo $form->labelEx($model, 'porfile_country'); ?></div>
 
 &nbsp;
 <?php
-$this->widget('booster.widgets.TbSelect2', array(
-    'asDropDownList' => true,
-    'model' => $model,
-    'attribute' => 'porfile_country',
-    'options' => array(
-        'placeholder' => $model->getAttributeLabel('porfile_country'),
-        'width' => '39.6%',
-        'class' => 'col-sm-5',
-        'allowClear' => true,
-    ),
-    'data' => CHtml::listData(IsoCountry::model()->findAll(), 'country_iso', 'country_name'
-    ),
-));
+//$this->widget('booster.widgets.TbSelect2', array(
+//    'asDropDownList' => true,
+//    'model' => $model,
+//    'attribute' => 'porfile_country',
+//    'options' => array(
+//        'placeholder' => $model->getAttributeLabel('porfile_country'),
+//        'width' => '39.6%',
+//        'class' => 'col-sm-5',
+//        'allowClear' => true,
+//    ),
+//    'data' => CHtml::listData(IsoCountry::model()->findAll(), 'country_iso', 'country_name'
+//    ),
+//));
+
+
+echo $form->dropDownListGroup(
+			$model,
+			'porfile_country',
+			array(
+				'wrapperHtmlOptions' => array(
+					'class' => 'col-sm-6',
+				),
+				'widgetOptions' => array(
+					'data' => CHtml::listData(IsoCountry::model()->findAll(), 'country_iso', 'country_name'),
+					'htmlOptions' => array(),
+				)
+			)
+		);
+
 ?><br><br>
                             <?php // echo $form->dropDownList($model, 'contact_iso_country', CHtml::listData(isocountry::model()->findAll(), 'country_iso', 'country_name')); ?>
                             <?php // echo $form->textField($model,'departmentId'); ?>
@@ -306,15 +333,7 @@ $this->widget('booster.widgets.TbSelect2', array(
                             <?php echo $form->error($model, 'porfile_phone'); ?>
                         </div>
 
-                        <div class="row">
-<?php // echo $form->labelEx($model, 'porfile_mobile');   ?>
-                            <?php
-                            echo $form->textFieldGroup($model, 'porfile_mobile', array('size' => 60, 'maxlength' => 255,
-                                'wrapperHtmlOptions' => array('class' => 'col-sm-5',),
-                            ));
-                            ?>
-                            <?php echo $form->error($model, 'porfile_mobile'); ?>
-                        </div>
+                        
 
                         <div class="row">
 <?php //echo $form->labelEx($model, 'porfile_camp_name');   ?>
@@ -339,32 +358,47 @@ echo $form->textFieldGroup($model, 'porfile_camp_function', array('size' => 60, 
 
 
                         <div class="row">
-                            <div class="col-sm-3 control-label" >
-<?php echo $form->labelEx($model, 'porfile_camp_country'); ?></div>
 
-&nbsp;
+<?php //echo $form->labelEx($model, 'porfile_camp_country'); ?>
+
+
 <?php
-$this->widget('booster.widgets.TbSelect2', array(
-    'asDropDownList' => true,
-    'model' => $model,
-    'attribute' => 'porfile_camp_country',
-    'options' => array(
-        'placeholder' => $model->getAttributeLabel('porfile_camp_country'),
-        'width' => '39.6%',
-        'class' => 'col-sm-5',
-        'allowClear' => true,
-    ),
-    'data' => CHtml::listData(IsoCountry::model()->findAll(), 'country_iso', 'country_name'
-    ),
-));
-?><br><br>
+//$this->widget('booster.widgets.TbSelect2', array(
+//    'asDropDownList' => true,
+//    'model' => $model,
+//    'attribute' => 'porfile_camp_country',
+//    'options' => array(
+//        'placeholder' => $model->getAttributeLabel('porfile_camp_country'),
+//        'width' => '39.6%',
+//        'class' => 'col-sm-5',
+//        'allowClear' => true,
+//    ),
+//    'data' => CHtml::listData(IsoCountry::model()->findAll(), 'country_iso', 'country_name'
+//    ),
+//));
+$url = Yii::app()->request->baseUrl.'/index.php/Client/Companyaccount'  ;
+echo $form->dropDownListGroup(
+			$model,
+			'porfile_camp_country',
+			array(
+				'wrapperHtmlOptions' => array(
+					'class' => 'col-sm-6',
+				),
+				'widgetOptions' => array(
+					'data' => CHtml::listData(IsoCountry::model()->findAll(), 'country_iso', 'country_name'),
+					'htmlOptions' => array("onChange"=>"return sendData('id_country='+this.value,'$url','countryaccount');"),
+				)
+			)
+		);
+
+?>
                             <?php // echo $form->dropDownList($model, 'contact_iso_country', CHtml::listData(isocountry::model()->findAll(), 'country_iso', 'country_name')); ?>
                             <?php // echo $form->textField($model,'departmentId'); ?>
                             <?php // echo $form->textField($model,'contact_iso_country'); ?>
                             <?php echo $form->error($model, 'porfile_camp_country'); ?>
                         </div>
 
-                        <div class="row">
+                        <div class="row" id="countryaccount">
 <?php //echo $form->labelEx($model, 'porfile_camp_account');  ?>
                             <?php
                             echo $form->textFieldGroup($model, 'porfile_camp_account', array('size' => 60, 'maxlength' => 255,
