@@ -1,6 +1,6 @@
 <?php
 
-class AdminLoginController extends Controller {
+class AdminloginController extends Controller {
 
     public $defaultAction = 'adminlogin';
 

@@ -1,6 +1,6 @@
 <?php
 
-class JournalistLoginController extends Controller {
+class JournalistloginController extends Controller {
 
     public $defaultAction = 'journalistlogin';
 

@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Ven 03 Octobre 2014 à 10:59
--- Version du serveur: 5.5.24-log
--- Version de PHP: 5.4.3
+-- Client :  127.0.0.1
+-- Généré le :  Dim 05 Octobre 2014 à 16:09
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `africanpress_db_1`
+-- Base de données :  `presslist`
 --
 
 -- --------------------------------------------------------
@@ -72,43 +72,17 @@ CREATE TABLE IF NOT EXISTS `business_category` (
   `cat_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'unique identifier',
   `cat_title` varchar(255) NOT NULL COMMENT 'category canonical title (Default)',
   PRIMARY KEY (`cat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `business_category`
 --
 
 INSERT INTO `business_category` (`cat_id`, `cat_title`) VALUES
-(5, 'Agriculture'),
-(6, 'Art & Literature'),
-(7, 'Banking & Financial Markets'),
-(8, 'Business'),
-(9, 'Culture & Tribes'),
-(10, 'Automotive'),
-(11, 'Education'),
-(12, 'Environment & Sustainable Energy'),
-(13, 'Gender'),
-(14, 'Government'),
-(15, 'Health'),
-(16, 'Industry'),
-(17, 'Infrastructure & Transport'),
-(18, 'International Relations'),
-(19, 'Internet & Media'),
-(20, 'ICT'),
-(21, 'Marketing Communications'),
-(22, 'Military & Conflict'),
-(23, 'Mining'),
-(24, 'Oil & Gas'),
-(25, 'Politics'),
-(26, 'Religion'),
-(27, 'Science'),
-(28, 'Society'),
-(29, 'Sports'),
-(30, 'Sustainable Development & Aid'),
-(31, 'Telecom'),
-(32, 'Travel & Tourism'),
-(33, 'Trade'),
-(34, 'Music, Film, Fashion & Leasure');
+(1, 'cat1'),
+(2, 'cat2'),
+(3, 'cat3'),
+(4, 'cat4');
 
 -- --------------------------------------------------------
 
@@ -121,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `channel` (
   `channel_title` varchar(255) NOT NULL COMMENT 'canonical title',
   `channel_category` char(2) DEFAULT NULL COMMENT '(''IN'',''NP'',''MG'',''RA'',''TV'') denotes channel main category',
   PRIMARY KEY (`channel_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `channel`
@@ -133,7 +107,8 @@ INSERT INTO `channel` (`channel_id`, `channel_title`, `channel_category`) VALUES
 (3, 'Magazine', 'MG'),
 (4, 'Newspaper', 'NP'),
 (5, 'Internet', 'IN'),
-(6, 'Blog', 'IN');
+(6, 'Blog', 'IN'),
+(7, 'aymen', 'tv');
 
 -- --------------------------------------------------------
 
@@ -179,9 +154,9 @@ CREATE TABLE IF NOT EXISTS `company` (
   `comp_address_nr_addon` varchar(255) DEFAULT NULL COMMENT 'house number addition',
   `comp_postal_code` varchar(255) DEFAULT NULL COMMENT 'postal code',
   `comp_city` varchar(255) DEFAULT NULL COMMENT 'city',
-  `country_iso` smallint(3) unsigned zerofill DEFAULT NULL COMMENT '(ref: iso_country) ',
+  `country_iso` smallint(3) unsigned zerofill NOT NULL COMMENT '(ref: iso_country) ',
   `comp_pub_region` int(10) DEFAULT NULL COMMENT 'optional region id where publishing (ref: geo_region)',
-  `comp_pub_country_iso` smallint(3) unsigned zerofill DEFAULT NULL COMMENT 'optional ISO-Â­â€3166 country code where publishing',
+  `comp_pub_country_iso` smallint(3) unsigned zerofill NOT NULL COMMENT 'optional ISO-Â­â€3166 country code where publishing',
   `comp_pub_city` varchar(255) DEFAULT NULL COMMENT 'optional city name where publishing',
   `comp_phone` varchar(255) DEFAULT NULL COMMENT 'phone',
   `comp_fax` varchar(255) DEFAULT NULL COMMENT 'fax',
@@ -194,15 +169,17 @@ CREATE TABLE IF NOT EXISTS `company` (
   KEY `comp_pub_country_iso` (`comp_pub_country_iso`),
   KEY `comp_main_contact` (`comp_main_contact`),
   KEY `comp_main_contact_2` (`comp_main_contact`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1000000000 ;
 
 --
 -- Contenu de la table `company`
 --
 
 INSERT INTO `company` (`comp_id`, `comp_group`, `comp_name`, `comp_address`, `comp_address_nr`, `comp_address_nr_addon`, `comp_postal_code`, `comp_city`, `country_iso`, `comp_pub_region`, `comp_pub_country_iso`, `comp_pub_city`, `comp_phone`, `comp_fax`, `comp_email`, `comp_website`, `comp_main_contact`) VALUES
-(1, NULL, 'Freelance', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL),
-(3, NULL, 'L''économiste', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL);
+(1, NULL, 'Mosaique FM', '', NULL, '', '', '', 010, NULL, 012, '', '', '', 'contact@mosaiquefm.net', '', NULL),
+(2, NULL, 'Jawhra FM', '', NULL, '', '', '', 012, NULL, 068, '', '', '', 'contact@lawhrafm.com', '', NULL),
+(3, NULL, 'La presse', '', NULL, '', '', '', 010, NULL, 140, '', '', '', 'contact@lapresse.net', '', NULL),
+(999999999, NULL, 'Freelance', NULL, NULL, NULL, NULL, NULL, 004, NULL, 004, NULL, NULL, NULL, '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -238,22 +215,14 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`contact_id`),
   KEY `contact_iso_country` (`contact_iso_country`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=229 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `contact`
 --
 
 INSERT INTO `contact` (`contact_id`, `contact_email`, `contact_name_ini`, `contact_name_first`, `contact_name_last`, `contact_gender`, `contact_adress`, `contact_address_nr`, `contact_address_addon`, `contact_iso_country`, `contact_city`, `contact_phone`, `contact_website`, `contact_tw`, `contact_fb`, `contact_go`, `contact_yt`, `contact_li`, `contact_bio`, `contact_is_imported`, `contact_imported_src`, `contact_status`, `contact_login_pass`, `profile`, `status`) VALUES
-(219, 'radhouane.walid@yahoo.fr', '', 'walidjournalist', 'walidjournalist name', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '65c14e24fae87d3b2cfcfea49d63377e', 1, 1),
-(220, 'walido_200@hotmail.com', '', 'walidjournalist2', 'walidjournalist2 name', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '4b80e4144982a79667345fe863055a70', 1, 1),
-(221, 'walido_2000@hotmail.com', '', 'walidjournalist2', 'walidjournalist2 name', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '65c14e24fae87d3b2cfcfea49d63377e', 1, 1),
-(222, 'walidjournalist@aa.com', '', 'walidjournalist', 'walidjournalist', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '4b80e4144982a79667345fe863055a70', 1, 1),
-(223, 'walidjournalist4@aa.com', '', 'walidjournalist', 'walidjournalist', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '65c14e24fae87d3b2cfcfea49d63377e', 1, 1),
-(224, 'walidjournalist5@yetgroup.com', '', 'walidjournalist5', 'walidjournalist5', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '26453fb4a42469a0d8fe749b2c20e79a', 1, 1),
-(226, 'walidjournalist6@aa.com', '', 'walidjournalist6', 'walidjournalist6', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '65c14e24fae87d3b2cfcfea49d63377e', 1, 1),
-(227, 'walidjournalist7@aa.com', '', 'walidjournalist7', 'walidjournalist7', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '65c14e24fae87d3b2cfcfea49d63377e', 1, 1),
-(228, 'walidjournalist8@aa.com', '', 'walidjournalist8', 'walidjournalist8', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '5ce7281461585baf2967cb34180a974c', 1, 1);
+(6, 'journalistmas@me.com', '', 'mohamed', 'mastouri', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '7de8372ca35198b87181828b57ce252a', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -276,18 +245,7 @@ CREATE TABLE IF NOT EXISTS `contact_category` (
 --
 
 INSERT INTO `contact_category` (`contact_id`, `cat_id`) VALUES
-(226, 5),
-(227, 6),
-(228, 6),
-(224, 7),
-(227, 8),
-(228, 8),
-(224, 10),
-(228, 10),
-(227, 11),
-(226, 18),
-(226, 20),
-(226, 22);
+(6, 1);
 
 -- --------------------------------------------------------
 
@@ -322,13 +280,7 @@ CREATE TABLE IF NOT EXISTS `contact_function` (
 --
 
 INSERT INTO `contact_function` (`company_id`, `contact_id`, `function_id`) VALUES
-(1, 226, 5),
-(1, 227, 5),
-(3, 228, 6),
-(1, 227, 7),
-(3, 228, 8),
-(1, 227, 9),
-(3, 228, 9);
+(3, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -351,108 +303,7 @@ CREATE TABLE IF NOT EXISTS `contact_geo_coverage` (
 --
 
 INSERT INTO `contact_geo_coverage` (`company_id`, `contact_id`, `geo_country_id`) VALUES
-(1, 224, 012),
-(1, 226, 012),
-(1, 228, 012),
-(1, 227, 024),
-(1, 228, 024),
-(1, 227, 072),
-(1, 228, 072),
-(1, 224, 108),
-(1, 226, 108),
-(1, 227, 108),
-(1, 228, 108),
-(1, 226, 120),
-(1, 224, 132),
-(1, 226, 140),
-(1, 226, 148),
-(1, 227, 174),
-(1, 228, 174),
-(1, 224, 178),
-(1, 226, 178),
-(1, 226, 180),
-(1, 224, 204),
-(1, 226, 226),
-(1, 224, 231),
-(1, 226, 231),
-(1, 227, 231),
-(1, 228, 231),
-(1, 224, 232),
-(1, 227, 232),
-(1, 228, 232),
-(1, 224, 262),
-(1, 226, 262),
-(1, 227, 262),
-(1, 228, 262),
-(1, 224, 266),
-(1, 226, 266),
-(1, 224, 270),
-(1, 224, 288),
-(1, 224, 324),
-(1, 224, 384),
-(1, 224, 404),
-(1, 227, 404),
-(1, 228, 404),
-(1, 227, 426),
-(1, 228, 426),
-(1, 224, 430),
-(1, 226, 434),
-(1, 227, 450),
-(1, 228, 450),
-(1, 227, 454),
-(1, 228, 454),
-(1, 224, 466),
-(1, 226, 478),
-(1, 227, 480),
-(1, 228, 480),
-(1, 226, 504),
-(1, 228, 504),
-(1, 227, 508),
-(1, 228, 508),
-(1, 227, 516),
-(1, 228, 516),
-(1, 224, 562),
-(1, 224, 566),
-(1, 224, 624),
-(1, 224, 646),
-(1, 227, 646),
-(1, 228, 646),
-(1, 226, 678),
-(1, 224, 686),
-(1, 224, 690),
-(1, 227, 690),
-(1, 228, 690),
-(1, 224, 694),
-(1, 224, 706),
-(1, 227, 706),
-(1, 228, 706),
-(1, 227, 710),
-(1, 228, 710),
-(1, 227, 716),
-(1, 228, 716),
-(1, 224, 728),
-(1, 227, 728),
-(1, 228, 728),
-(1, 226, 729),
-(1, 228, 729),
-(1, 227, 748),
-(1, 228, 748),
-(1, 224, 768),
-(1, 224, 788),
-(1, 226, 788),
-(1, 228, 788),
-(1, 224, 800),
-(1, 227, 800),
-(1, 228, 800),
-(1, 224, 818),
-(1, 226, 818),
-(1, 228, 818),
-(1, 224, 834),
-(1, 227, 834),
-(1, 228, 834),
-(1, 224, 854),
-(1, 227, 894),
-(1, 228, 894);
+(1, 6, 788);
 
 -- --------------------------------------------------------
 
@@ -472,19 +323,8 @@ CREATE TABLE IF NOT EXISTS `contact_language` (
 --
 
 INSERT INTO `contact_language` (`contact_id`, `lang_iso`) VALUES
-(226, 'ara'),
-(228, 'ara'),
-(224, 'eng'),
-(226, 'eng'),
-(227, 'eng'),
-(228, 'eng'),
-(226, 'fra'),
-(227, 'fra'),
-(228, 'fra'),
-(224, 'por'),
-(226, 'por'),
-(227, 'por'),
-(228, 'por');
+(6, 'ara'),
+(6, 'eng');
 
 -- --------------------------------------------------------
 
@@ -541,16 +381,15 @@ CREATE TABLE IF NOT EXISTS `credit` (
   `credit_duration` int(10) NOT NULL COMMENT 'duration in days for purchase',
   `credit_notes` mediumtext NOT NULL COMMENT 'opt notes',
   PRIMARY KEY (`credit_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `credit`
 --
 
 INSERT INTO `credit` (`credit_id`, `credit_show`, `credit_amount`, `credit_price`, `credit_duration`, `credit_notes`) VALUES
-(14, 'N', NULL, '0', 0, ''),
-(15, 'N', NULL, '0', 0, ''),
-(16, 'N', NULL, '0', 0, '');
+(1, 'N', NULL, '0', 0, ''),
+(2, 'N', NULL, '0', 0, '');
 
 -- --------------------------------------------------------
 
@@ -586,16 +425,15 @@ CREATE TABLE IF NOT EXISTS `credit_package` (
   PRIMARY KEY (`credit_package_id`),
   UNIQUE KEY `extention_credit_id (1)` (`extention_credit_id`),
   KEY `basic_credit_id (1)` (`basic_credit_id`,`extention_credit_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `credit_package`
 --
 
 INSERT INTO `credit_package` (`credit_package_id`, `basic_credit_id`, `extention_credit_id`, `package_title`, `package_rank`) VALUES
-(12, 14, NULL, '', 0),
-(13, 15, NULL, '', 0),
-(14, 16, NULL, '', 0);
+(1, 1, NULL, '', 0),
+(2, 2, NULL, '', 0);
 
 -- --------------------------------------------------------
 
@@ -607,19 +445,17 @@ CREATE TABLE IF NOT EXISTS `function` (
   `function_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'primary identifier',
   `function_title` varchar(255) NOT NULL COMMENT 'canonical title',
   PRIMARY KEY (`function_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `function`
 --
 
 INSERT INTO `function` (`function_id`, `function_title`) VALUES
-(5, 'Journalist / reporter'),
-(6, 'Editor in chief'),
-(7, 'Company'),
-(8, 'Freelancer'),
-(9, 'Blogger'),
-(10, 'Camera Men');
+(1, 'fun 1'),
+(2, 'fun 2'),
+(3, 'fun 3'),
+(4, 'fun 4');
 
 -- --------------------------------------------------------
 
@@ -664,12 +500,12 @@ CREATE TABLE IF NOT EXISTS `geo_region` (
 --
 
 INSERT INTO `geo_region` (`geo_region_id`, `region_name`) VALUES
-(1, 'East Africa'),
-(2, 'Central Africa'),
-(3, 'North Africa'),
+(1, 'Eastern Africa'),
+(2, 'Middle Africa'),
+(3, 'Northern Africa'),
 (4, 'Southern Africa'),
-(5, 'West Africa'),
-(8, 'Southern America'),
+(5, 'Western Africa'),
+(8, 'South America'),
 (9, 'Northern America'),
 (10, 'ASIA'),
 (11, 'EUROPE'),
@@ -719,7 +555,7 @@ INSERT INTO `iso_country` (`country_iso`, `country_name`, `geo_region_id`, `cont
 (012, 'Algeria', 3, 'AF'),
 (016, 'American Samoa', 14, 'OC'),
 (020, 'Andorra', 11, 'EU'),
-(024, 'Angola', 4, 'AF'),
+(024, 'Angola', 2, 'AF'),
 (031, 'Azerbaijan', 10, 'AS'),
 (032, 'Argentina', 8, 'SA'),
 (036, 'Australia', 14, 'OC'),
@@ -754,9 +590,10 @@ INSERT INTO `iso_country` (`country_iso`, `country_name`, `geo_region_id`, `cont
 (162, 'Christmas Island', NULL, 'AS'),
 (166, 'Cocos (Keeling) Islands', NULL, 'AS'),
 (170, 'Colombia', 8, 'SA'),
-(174, 'Comoros', 4, 'AF'),
-(178, 'Congo Brazzaville\n', 2, 'AF'),
-(180, 'Congo Kinshasa', 2, 'AF'),
+(174, 'Comoros', 1, 'AF'),
+(175, 'Mayotte', 1, 'AF'),
+(178, 'Congo', 2, 'AF'),
+(180, 'Congo', 2, 'AF'),
 (184, 'Cook Islands', NULL, 'OC'),
 (191, 'Croatia', 11, 'EU'),
 (196, 'Cyprus', 12, 'AS'),
@@ -816,20 +653,20 @@ INSERT INTO `iso_country` (`country_iso`, `country_name`, `geo_region_id`, `cont
 (440, 'Lithuania', 12, 'EU'),
 (442, 'Luxembourg', 12, 'EU'),
 (446, 'Macao', 10, 'AS'),
-(450, 'Madagascar', 4, 'AF'),
-(454, 'Malawi', 4, 'AF'),
+(450, 'Madagascar', 1, 'AF'),
+(454, 'Malawi', 1, 'AF'),
 (458, 'Malaysia', 10, 'AS'),
 (462, 'Maldives', 10, 'AS'),
 (466, 'Mali', 5, 'AF'),
 (470, 'Malta', 12, 'EU'),
-(478, 'Mauritania', 3, 'AF'),
-(480, 'Mauritius', 4, 'AF'),
+(478, 'Mauritania', 5, 'AF'),
+(480, 'Mauritius', 1, 'AF'),
 (492, 'Monaco', 11, 'EU'),
 (496, 'Mongolia', 10, 'AS'),
 (498, 'Moldova', 11, 'EU'),
 (499, 'Montenegro', 11, 'EU'),
 (504, 'Morocco', 3, 'AF'),
-(508, 'Mozambique', 4, 'AF'),
+(508, 'Mozambique', 1, 'AF'),
 (516, 'Namibia', 4, 'AF'),
 (520, 'Nauru', NULL, 'OC'),
 (524, 'Nepal', 10, 'AS'),
@@ -857,9 +694,11 @@ INSERT INTO `iso_country` (`country_iso`, `country_name`, `geo_region_id`, `cont
 (620, 'Portugal', 12, 'EU'),
 (624, 'Guinea-Bissau', 5, 'AF'),
 (626, 'Timor-Leste', 10, 'AS'),
+(638, 'RÃ©union', 1, 'AF'),
 (642, 'Romania', 12, 'EU'),
 (643, 'Russian Federation', 11, 'EU'),
 (646, 'Rwanda', 1, 'AF'),
+(654, 'Saint Helena, Ascension and Tristan da Cunha', 5, 'AF'),
 (666, 'Saint Pierre and Miquelon', 9, 'NA'),
 (674, 'San Marino', 11, 'EU'),
 (678, 'Sao Tome and Principe', 2, 'AF'),
@@ -873,10 +712,11 @@ INSERT INTO `iso_country` (`country_iso`, `country_name`, `geo_region_id`, `cont
 (705, 'Slovenia', 12, 'EU'),
 (706, 'Somalia', 1, 'AF'),
 (710, 'South Africa', 4, 'AF'),
-(716, 'Zimbabwe', 4, 'AF'),
+(716, 'Zimbabwe', 1, 'AF'),
 (724, 'Spain', 12, 'EU'),
-(728, 'South Sudan', 1, 'AF'),
+(728, 'South Sudan', 3, 'AF'),
 (729, 'Sudan', 3, 'AF'),
+(732, 'Western Sahara', 3, 'AF'),
 (740, 'Suriname', 8, 'SA'),
 (744, 'Svalbard & Jan Mayen Islands', 11, 'EU'),
 (748, 'Swaziland', 4, 'AF'),
@@ -907,7 +747,7 @@ INSERT INTO `iso_country` (`country_iso`, `country_name`, `geo_region_id`, `cont
 (862, 'Venezuela', 8, 'SA'),
 (876, 'Wallis and Futuna', NULL, 'OC'),
 (882, 'Samoa', 14, 'OC'),
-(894, 'Zambia', 4, 'AF');
+(894, 'Zambia', 1, 'AF');
 
 -- --------------------------------------------------------
 
@@ -947,14 +787,7 @@ CREATE TABLE IF NOT EXISTS `list` (
   `list_modified` int(11) NOT NULL,
   PRIMARY KEY (`list_id`),
   KEY `list_user` (`list_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `list`
---
-
-INSERT INTO `list` (`list_id`, `list_user`, `list_name`, `ist_notes`, `list_added`, `list_modified`) VALUES
-(1, 225, 'list contact', '', 1411986330, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -968,15 +801,6 @@ CREATE TABLE IF NOT EXISTS `list_contact` (
   PRIMARY KEY (`list_id`,`contact_id`),
   KEY `fk_contact_id_list_contact` (`contact_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `list_contact`
---
-
-INSERT INTO `list_contact` (`list_id`, `contact_id`) VALUES
-(1, 219),
-(1, 221),
-(1, 224);
 
 -- --------------------------------------------------------
 
@@ -1078,14 +902,7 @@ CREATE TABLE IF NOT EXISTS `press` (
   KEY `press_id` (`press_id`),
   KEY `list_id` (`list_id`),
   KEY `press_user` (`press_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `press`
---
-
-INSERT INTO `press` (`press_id`, `press_user`, `list_id`, `press_subject`, `press_content`, `press_status`, `press_contacts_mailed`, `press_contacts_failed`, `press_date`, `press_date_started`, `press_date_completed`, `press_sender_name`, `press_sender_email`, `press_replyto_name`, `press_replyto_email`, `press_file_1`, `press_file_2`, `press_file_3`, `press_pub_abc`, `press_pub_linkedin`, `press_pub_facebook`, `press_pub_twitter`, `hours`) VALUES
-(1, 225, 1, 'test', '<p>test press</p>', 'D', 0, 0, '2014-09-29 09:26:36', NULL, NULL, 'walidclient', 'walidclient@aa.com', 'walidclient', 'walidclient@aa.com', '', '', '', 0, 0, 0, 0, '00:00:00');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1150,15 +967,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `city` varchar(50) DEFAULT NULL,
   `zip` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=230 ;
-
---
--- Contenu de la table `profiles`
---
-
-INSERT INTO `profiles` (`user_id`, `identifier`, `lastname`, `displayName`, `firstname`, `webSiteURL`, `profileURL`, `photoURL`, `description`, `gender`, `language`, `age`, `birthDay`, `birthMonth`, `birthYear`, `email`, `emailVerified`, `phone`, `address`, `country`, `region`, `city`, `zip`) VALUES
-(217, 2147483647, 'Radhouane', 'Walid Radhouane', 'Walid', '', 'https://www.facebook.com/app_scoped_user_id/102030', 'https://graph.facebook.com/10203032547707401/pictu', '', 'male', NULL, NULL, NULL, NULL, NULL, 'walido_20@hotmail.com', 'walido_20@hotmail.com', NULL, NULL, NULL, '', NULL, NULL),
-(229, 1968397698, NULL, 'walidrad1', 'walid radhouane', NULL, 'http://twitter.com/walidrad1', 'http://abs.twimg.com/sticky/default_profile_images', '', NULL, NULL, NULL, NULL, NULL, NULL, 'radhouane.walid.m2@gmail.com', NULL, NULL, NULL, NULL, '', NULL, NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1228,18 +1037,7 @@ CREATE TABLE IF NOT EXISTS `role_channel` (
 --
 
 INSERT INTO `role_channel` (`company_id`, `contact_id`, `channel_id`) VALUES
-(1, 224, 1),
-(1, 224, 6),
-(1, 226, 1),
-(1, 226, 3),
-(1, 226, 5),
-(1, 227, 1),
-(1, 227, 3),
-(1, 227, 4),
-(1, 228, 1),
-(1, 228, 4),
-(1, 228, 5),
-(1, 228, 6);
+(1, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -1304,16 +1102,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `user_package_id` (`user_package_id`),
   KEY `porfile_country` (`porfile_country`),
   KEY `porfile_camp_country_2` (`porfile_camp_country`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=230 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_package_id`, `user_pass`, `user_credits`, `user_registered`, `user_verified`, `user_activity`, `user_deactivated`, `user_password_request`, `user_email`, `porfile_initials`, `porfile_name_first`, `porfile_name_last`, `porfile_address`, `porfile_address_nr`, `porfile_address_addon`, `porfile_city`, `porfile_country`, `porfile_phone`, `porfile_mobile`, `porfile_camp_name`, `porfile_camp_function`, `porfile_camp_country`, `porfile_camp_account`, `porfile_camp_email`, `porfile_camp_website`, `porfile_coc`, `profile_remarks`, `usetting_sender_name`, `usetting_sender_email`, `usetting_replyto_name`, `usetting_replyto_email`, `usetting_bounce_email`, `profile`, `status`, `credittype`, `termofuse`) VALUES
-(217, NULL, '', NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', 'walido_20@hotmail.com', '', 'Walid', 'Radhouane', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 0, 0),
-(225, NULL, '4b80e4144982a79667345fe863055a70', NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', 'walidclient@aa.com', '', 'walidclient', 'walidclient', '', NULL, '', '', 004, '646464', '', 'test', '', 068, NULL, 'walidclient@aa.com', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 2, 1),
-(229, NULL, '', NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', 'radhouane.walid.m2@gmail.com', '', 'walid radhouane', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 0, 0);
+(5, NULL, '167cbdf27b0ff1d135e2b7189570ff60', NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', 'clientmas@me.com', '', 'Ayman', 'aymen', '', NULL, '', '', 004, '0021671050204', '', 'Esprit_Compnay', '', 060, NULL, 'mohamedaymen.mastouri@gmail.com', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -1331,31 +1127,22 @@ CREATE TABLE IF NOT EXISTS `users` (
   `lastvisit_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `superuser` int(1) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '0',
+  `dtype` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`),
   KEY `superuser` (`superuser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=231 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`) VALUES
-(217, 'Walid Radhouane', '', 'walido_20@hotmail.com', '87d31ce3120b831bbf02fd7815615ab4', '2014-09-24 16:45:53', '0000-00-00 00:00:00', 0, 0),
-(219, 'walidjournalist', '6b511b289b5161497fb84dec7d99b64a', 'radhouane.walid@yahoo.fr', 'e9a32d31cd84c9ca7437870569b97bbe', '2014-09-28 18:10:17', '0000-00-00 00:00:00', 0, 0),
-(220, 'walidjournalist2', '6b511b289b5161497fb84dec7d99b64a', 'walido_200@hotmail.com', '5406133c2bfc0fa8588e2614cb93d1f3', '2014-09-28 18:28:00', '0000-00-00 00:00:00', 0, 0),
-(221, 'walidjournalist20', '6b511b289b5161497fb84dec7d99b64a', 'walido_2000@hotmail.com', '0d5acf57142d4bcb5e840985beb1658e', '2014-09-28 18:43:29', '0000-00-00 00:00:00', 0, 0),
-(222, 'walidjournalist3', '6b511b289b5161497fb84dec7d99b64a', 'walidjournalist@aa.com', 'c5ec97d942ce43bce8bae205443f5e70', '2014-09-28 18:53:56', '0000-00-00 00:00:00', 0, 0),
-(223, 'walidjournalist4', '6b511b289b5161497fb84dec7d99b64a', 'walidjournalist4@aa.com', '2885f333606e14805dacd393a481960c', '2014-09-28 18:55:57', '0000-00-00 00:00:00', 0, 0),
-(224, 'walidjournalist5', '6b511b289b5161497fb84dec7d99b64a', 'walidjournalist5@yetgroup.com', 'db6d8bf78d732903f29abe97024a87f7', '2014-09-29 09:53:04', '2014-10-03 08:14:53', 0, 1),
-(225, 'walidclient', '6b511b289b5161497fb84dec7d99b64a', 'walidclient@aa.com', '7f2a87c5383c00d31d8558c7426df90a', '2014-09-29 10:24:04', '2014-09-29 09:24:43', 0, 1),
-(226, 'walidjournalist6', '6b511b289b5161497fb84dec7d99b64a', 'walidjournalist6@aa.com', '1c7e45b17bda6aa7558be4324ce525c0', '2014-09-29 14:47:28', '2014-09-29 13:48:09', 0, 1),
-(227, 'walidjournalist7', '6b511b289b5161497fb84dec7d99b64a', 'walidjournalist7@aa.com', '312fe57222d88a7e559e3d7dd167d99a', '2014-09-29 14:52:57', '0000-00-00 00:00:00', 0, 0),
-(228, 'walidjournalist8', '6b511b289b5161497fb84dec7d99b64a', 'walidjournalist8@aa.com', 'fd38a0e6896fafb3e430cc84857f156b', '2014-09-29 14:59:04', '2014-09-30 11:03:07', 0, 1),
-(229, 'walidrad1', '', 'radhouane.walid.m2@gmail.com', '22015d43993f2e3ab3d0e9494c0fdf1e', '2014-09-29 15:46:42', '0000-00-00 00:00:00', 0, 0),
-(230, 'adminapl', 'f8450a97cc7e38e6d109425c87b41634', 'admin@apl.com', '71fc5d49b13d9502e376bfe4bdb95743', '2014-10-03 10:08:07', '0000-00-00 00:00:00', 1, 1);
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`, `dtype`) VALUES
+(5, 'mastouri', 'b624425ac0ca9728fc9b27033f61d59d', 'clientmas@me.com', 'a0a9ccbaa4f111ef7c57f1106fb7dcd3', '2014-10-05 09:18:00', '2014-10-05 10:18:38', 0, 1, 'client'),
+(6, 'mastourij', 'b624425ac0ca9728fc9b27033f61d59d', 'journalistmas@me.com', '5e457b08cf8342ffa3a528eefc83162b', '2014-10-05 09:20:37', '2014-10-05 10:22:10', 0, 1, 'journalist'),
+(7, 'adminmas', 'b624425ac0ca9728fc9b27033f61d59d', 'admin@me.com', '669003f1d39b83ab93cccba4812be6ae', '2014-10-05 09:33:13', '0000-00-00 00:00:00', 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -1373,14 +1160,6 @@ CREATE TABLE IF NOT EXISTS `user_oauth` (
   UNIQUE KEY `unic_user_id_name` (`user_id`,`provider`),
   KEY `oauth_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `user_oauth`
---
-
-INSERT INTO `user_oauth` (`user_id`, `provider`, `identifier`, `profile_cache`, `session_data`) VALUES
-(217, 'Facebook', '10203032547707401', 'a:22:{s:10:"identifier";s:17:"10203032547707401";s:10:"webSiteURL";s:0:"";s:10:"profileURL";s:62:"https://www.facebook.com/app_scoped_user_id/10203032547707401/";s:8:"photoURL";s:73:"https://graph.facebook.com/10203032547707401/picture?width=150&height=150";s:11:"displayName";s:15:"Walid Radhouane";s:11:"description";s:0:"";s:9:"firstName";s:5:"Walid";s:8:"lastName";s:9:"Radhouane";s:6:"gender";s:4:"male";s:8:"language";N;s:3:"age";N;s:8:"birthDay";N;s:10:"birthMonth";N;s:9:"birthYear";N;s:5:"email";s:21:"walido_20@hotmail.com";s:13:"emailVerified";s:21:"walido_20@hotmail.com";s:5:"phone";N;s:7:"address";N;s:7:"country";N;s:6:"region";s:0:"";s:4:"city";N;s:3:"zip";N;}', 'a:2:{s:35:"hauth_session.facebook.is_logged_in";s:4:"i:1;";s:41:"hauth_session.facebook.token.access_token";s:207:"s:198:"CAAGrZCWXM4XYBAMq78nI5hhpy5GoFTt3k4PnmDCgnXRd0k9dg6zFQZCOzBqfETz6aFHZAlUeyz5DrWeSnonNPiwGtX0XPPWuJNxHIwRlCDZAzx59LuKapZC1uyDhgOkwLZAMn4wZA1uVEXR1tigZA0HFc2gKbza1b1lhtvl5hpsJfTx3ftxa1myqNjz7mgPWLlIZD";";}'),
-(229, 'Twitter', '1968397698', 'a:22:{s:10:"identifier";i:1968397698;s:10:"webSiteURL";N;s:10:"profileURL";s:28:"http://twitter.com/walidrad1";s:8:"photoURL";s:79:"http://abs.twimg.com/sticky/default_profile_images/default_profile_1_normal.png";s:11:"displayName";s:9:"walidrad1";s:11:"description";s:0:"";s:9:"firstName";s:15:"walid radhouane";s:8:"lastName";N;s:6:"gender";N;s:8:"language";N;s:3:"age";N;s:8:"birthDay";N;s:10:"birthMonth";N;s:9:"birthYear";N;s:5:"email";N;s:13:"emailVerified";N;s:5:"phone";N;s:7:"address";N;s:7:"country";N;s:6:"region";s:0:"";s:4:"city";N;s:3:"zip";N;}', 'a:3:{s:40:"hauth_session.twitter.token.access_token";s:58:"s:50:"1968397698-VwAD6LTwRH8P9GiW7qTQVtrWiresg0AjadMkuY8";";s:47:"hauth_session.twitter.token.access_token_secret";s:53:"s:45:"lHGMe4gHSBqzEe21loZO23oXhrpJRsQHxhimXkCrhZQ9j";";s:34:"hauth_session.twitter.is_logged_in";s:4:"i:1;";}');
 
 -- --------------------------------------------------------
 
@@ -1404,9 +1183,8 @@ CREATE TABLE IF NOT EXISTS `user_package` (
 --
 
 INSERT INTO `user_package` (`user_id`, `credit_package_id`, `voucher_code`, `utype_credits`, `utype_expires`, `utype_notes`) VALUES
-(217, 12, NULL, NULL, NULL, ''),
-(225, 13, NULL, NULL, NULL, ''),
-(229, 14, NULL, NULL, NULL, '');
+(3, 1, NULL, NULL, NULL, ''),
+(5, 2, NULL, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -1529,17 +1307,17 @@ ALTER TABLE `contact_client_blacklist`
 -- Contraintes pour la table `contact_function`
 --
 ALTER TABLE `contact_function`
+  ADD CONSTRAINT `contact_function_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`comp_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `contact_function_ibfk_2` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`contact_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `contact_function_ibfk_3` FOREIGN KEY (`function_id`) REFERENCES `function` (`function_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `contact_function_ibfk_4` FOREIGN KEY (`company_id`) REFERENCES `company` (`comp_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `contact_function_ibfk_3` FOREIGN KEY (`function_id`) REFERENCES `function` (`function_id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `contact_geo_coverage`
 --
 ALTER TABLE `contact_geo_coverage`
   ADD CONSTRAINT `contact_geo_coverage_ibfk_1` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`contact_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `contact_geo_coverage_ibfk_3` FOREIGN KEY (`geo_country_id`) REFERENCES `iso_country` (`country_iso`) ON DELETE CASCADE,
-  ADD CONSTRAINT `contact_geo_coverage_ibfk_4` FOREIGN KEY (`company_id`) REFERENCES `company` (`comp_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `contact_geo_coverage_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `company` (`comp_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `contact_geo_coverage_ibfk_3` FOREIGN KEY (`geo_country_id`) REFERENCES `iso_country` (`country_iso`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `contact_language`
@@ -1645,9 +1423,9 @@ ALTER TABLE `rights`
 -- Contraintes pour la table `role_channel`
 --
 ALTER TABLE `role_channel`
+  ADD CONSTRAINT `role_channel_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`comp_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_channel_ibfk_2` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`contact_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `role_channel_ibfk_3` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `role_channel_ibfk_4` FOREIGN KEY (`company_id`) REFERENCES `company` (`comp_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `role_channel_ibfk_3` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `user`

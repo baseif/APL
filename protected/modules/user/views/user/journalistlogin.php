@@ -16,7 +16,7 @@ $this->breadcrumbs = array(
 ?>
 <!--
 <h1><?php // echo UserModule::t("Login");   ?></h1>-->
-<h1><?php echo  Yii::t('app','My Space');?></h1>
+<h1><?php echo  Yii::t('app','My Space As Journalist');?></h1>
 
 
 

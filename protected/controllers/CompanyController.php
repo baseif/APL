@@ -31,10 +31,7 @@ class CompanyController extends Controller
 				'actions'=>array('index','view','listcountry'),
 				'users'=>array('@'),
 			),
-//			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-//				'actions'=>array('create','update'),
-//				'users'=>array('@'),
-//			),
+
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
                                 'actions'=>array('create','update','admin','delete','index','view'),                                    'users'=>array('@'),
                                 'expression'=>'User::model()->findByPk(Yii::app()->user->id)->superuser==1',

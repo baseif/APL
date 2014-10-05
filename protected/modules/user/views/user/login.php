@@ -16,7 +16,7 @@ $this->breadcrumbs = array(
 ?>
 <!--
 <h1><?php // echo UserModule::t("Login");   ?></h1>-->
-<h1><?php echo  Yii::t('app','My Space');?></h1>
+<h1><?php echo  Yii::t('app','My Space As Client');?></h1>
 
 
 
@@ -137,13 +137,4 @@ $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit',
 //                ), $model);
         ?><?php $this->endWidget(); ?>
         </div>
-    <div class="span-5" >
-        <div class="span-8 journalist">
-            <div class="push-13">
-  
-             <div style="margin-top: -250px;">
-                    <?php $this->widget('ext.hoauth.widgets.HOAuth'); ?>    
-                </div>
-            </div> </div>
-
-    </div>
+    
