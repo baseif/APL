@@ -85,7 +85,7 @@ class Company extends CActiveRecord
 		return array(
 			'comp_id' => 'Comp',
 			'comp_group' => 'Comp Group',
-			'comp_name' => 'Comp Name',
+			'comp_name' => 'Company / Publisher name',
 			'comp_address' => 'Comp Address',
 			'comp_address_nr' => 'Comp Address Nr',
 			'comp_address_nr_addon' => 'Comp Address Nr Addon',

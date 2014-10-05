@@ -124,9 +124,11 @@ class ContactController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
-        
+       
 
 $model = Contact::model()->findByPk($id);
+
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -136,9 +138,11 @@ $model = Contact::model()->findByPk($id);
 			if($model->save())
 				$this->redirect(array('dashbord','id'=>$model->contact_id));
 		}
+                
+               
 
 		 $this->render('update', array(
-            'model' => $model,
+            'model' => $model, 'categories'=>$categories, 'iso_language'=>$iso_language, 'company'=>$company, 'channel'=>$channel, 'function'=>$function
         ));
     }
 

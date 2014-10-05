@@ -151,7 +151,12 @@
                                         array('label' => Yii::t('app', 'As Journalist-Media'), 'url' => array('/user/registration')),
                                     )
                                     , 'visible' => Yii::app()->user->isGuest),
-                                array('label' => Yii::t('app', 'My Space'), 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
+                                 array('label' => Yii::t('app', 'Login'), 'items' => array(
+                                        array('label' => Yii::t('app', 'As Client-User'), 'url' => array('/user/login')),
+                                        array('label' => Yii::t('app', 'As Journalist-Media'), 'url' => array('/user/journalistlogin')),
+                                    )
+                                    , 'visible' => Yii::app()->user->isGuest),
+                             //   array('label' => Yii::t('app', 'My Space'), 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
                                 array('label' => Yii::t('app', 'My Profile'), 'icon' => 'wrench white', 'url' => array('/user/profile'), 'visible' => !Yii::app()->user->isGuest),
                                 array('icon' => 'off  ',
                                     'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'url' => array('/user/logout'),

@@ -274,7 +274,7 @@ class HOAuthAction extends CAction {
             }
         }
 
-        $returnUrl = $this->useYiiUser ? Yii::app()->modules['user']['returnUrl'] : Yii::app()->user->returnUrl;
+        $returnUrl = $this->useYiiUser ? Yii::app()->modules['user']['returnEditUrl'] : Yii::app()->user->returnEditUrl;
         Yii::app()->controller->redirect($returnUrl);
     }
 
@@ -326,6 +326,7 @@ class HOAuthAction extends CAction {
         
         // the model won't be new, if user provided email and password of existing account
         if ($user->isNewRecord) {
+            $user->status = 1;
             if (!$user->save())
                 throw new Exception("Error, while saving {$this->model} model:\n\n" . var_export($user->errors, true));
 
@@ -334,7 +335,7 @@ class HOAuthAction extends CAction {
    
        
             // trying to send activation email
-            $this->sendActivationMail($user);
+//            $this->sendActivationMail($user);
 
             if ($this->useYiiUser) {
                 $profile->user_id = $user->primaryKey;

@@ -29,15 +29,14 @@ class CompanyController extends Controller
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view','listcountry'),
-				'users'=>array('*'),
+				'users'=>array('@'),
 			),
 //			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 //				'actions'=>array('create','update'),
 //				'users'=>array('@'),
 //			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('create','update','admin','delete'),    
-                                'users'=>array('@'),
+                                'actions'=>array('create','update','admin','delete','index','view'),                                    'users'=>array('@'),
                                 'expression'=>'User::model()->findByPk(Yii::app()->user->id)->superuser==1',
                             ),
 			array('deny',  // deny all users

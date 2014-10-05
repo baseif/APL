@@ -1,8 +1,8 @@
 <?php
 
-class RegistrationController extends Controller {
+class EditregistrationController extends Controller {
 
-    public $defaultAction = 'registration';
+    public $defaultAction = 'editregistration';
 
     /**
      * Declares class-based actions.
@@ -19,7 +19,8 @@ class RegistrationController extends Controller {
     /**
      * Registration user
      */
-    public function actionRegistration() {
+
+    public function actionEditRegistration() {
         Profile::$regMode = true;
         $model = new RegistrationForm;
         //$profile = new Profile;
@@ -67,93 +68,56 @@ class RegistrationController extends Controller {
                             $lang_iso = $_POST['IsoLanguage']['lang_iso'];
                             $contact->isoLanguages = $lang_iso;
                         }
-                       
                         
-                        for($i=1;$i<=$_POST['nbfield'];$i++){
-                        
-                            
-                            if(isset($_POST['company'.$i])){
-                                //echo '<br>';
-                                //echo $_POST['company'.$i].'<br>';
-                           // echo $_POST['inputcountry'.$i].'<br>';
-                            //echo $_POST['function'.$i].'<br>';
-                                if(!empty($_POST['company'.$i]) && !empty($_POST['inputcountry'.$i]) && !empty($_POST['function'.$i])){
-                                $companies = $_POST['company'.$i];
-                                 
-
-                                    $countries = explode(',',$_POST['inputcountry'.$i]);
-
-                                    foreach($countries as $c){
-                                        $cgc = new ContactGeoCoverage;
-                                        $cgc->contact = $contact->contact_id;
-                                        $cgc->company = $companies;
-                                        $cgc->geoCountry = $c;
-                                   
-                                        $cgc->save();                                   
-
-                                    }
-                                    $functions = explode(',', $_POST['function'.$i]);
-
-                                    foreach($functions as $f){
-                                        $fun = new ContactFunction;
-                                        $fun->contact = $contact->contact_id;
-                                        $fun->company = $companies;
-                                        $fun->function = $f;
-                                        $fun->save();                                   
-
-                                    }
-                                    
-                                    $channels = explode(',', $_POST['inputchannel'.$i]);
-                                        //echo $_POST['inputchannel'.$i];
-                                        foreach($channels as $ch){
-                                        $rolechannel = new RoleChannel;
-                                        $rolechannel->contact = $contact->contact_id;
-                                        $rolechannel->company = $companies;
-                                        $rolechannel->channel = $ch;
-                                        $rolechannel->save();                                   
-
-                                    }
-                                    
-                                }
-
+                        if(empty($_POST['Company']['comp_id']) && empty($_POST['companyfield'])){
+                            $id_company = 1;
+                        }
+                        else{
+                            if(!empty($_POST['Company']['comp_id'])){
+                                $id_company = $_POST['Company']['comp_id'];
                             }
-                            
+                            else{
+                                $company->comp_name = $_POST['companyfield'];
+                                $company->save(false);
+                                $id_company = $company->comp_id;
+                            }
                         }
-                        if(isset($_POST['freelanceactivity'])){
-                            $countries = explode(',',$_POST['countryfreelance']);
-
-                                    foreach($countries as $c){
-                                        $cgc = new ContactGeoCoverage;
-                                        $cgc->contact = $contact->contact_id;
-                                        $cgc->company = 999999999;
-                                        $cgc->geoCountry = $c;
-                                        $cgc->save();                                   
-
-                                    }
-                                    $functions = explode(',', $_POST['functionfreelance']);
-
-                                    foreach($functions as $f){
+                        
+                        if(isset($_POST['Functions']['function_id'])){
+                            $functions = $_POST['Functions']['function_id'];
+                             foreach($functions as $f){
                                         $fun = new ContactFunction;
                                         $fun->contact = $contact->contact_id;
-                                        $fun->company = 999999999;
+                                        $fun->company = $id_company;
                                         $fun->function = $f;
                                         $fun->save();                                   
 
                                     }
-                                    
-                                    $channels = explode(',', $_POST['channelfreelance']);
-                                        
-                                    foreach($channels as $ch){
+                        }
+                        
+                        if(isset($_POST['RoleChannel']['channel_id'])){
+                            $channels = $_POST['RoleChannel']['channel_id'];
+                             foreach($channels as $ch){
                                         $rolechannel = new RoleChannel;
                                         $rolechannel->contact = $contact->contact_id;
-                                        $rolechannel->company = 999999999;
+                                        $rolechannel->company = 1;
                                         $rolechannel->channel = $ch;
                                         $rolechannel->save();                                   
 
                                     }
                         }
                         
-                        
+                        $countries = $_POST['country'];
+                        foreach($countries as $c){
+                            $cgc = new ContactGeoCoverage;
+                            $cgc->contact = $contact->contact_id;
+                            $cgc->company = 1;
+                            $cgc->geoCountry = $c;
+
+                            $cgc->save();                                   
+
+                        }
+
                         $contact->save();
                         
 
@@ -225,7 +189,7 @@ browser)<br />
             }
             
             //$categories = BusinessCategory::model()->findAll();
-            $this->render('/user/registration', array('model' => $model, 'contact' => $contact, 'categories'=>$categories, 'iso_language'=>$iso_language, 'company'=>$company, 'channel'=>$channel, 'function'=>$function));
+            $this->render('/user/editregistration', array('model' => $model, 'contact' => $contact, 'categories'=>$categories, 'iso_language'=>$iso_language, 'company'=>$company, 'channel'=>$channel, 'function'=>$function));
         }
     }
     

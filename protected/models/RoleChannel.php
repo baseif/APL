@@ -61,7 +61,7 @@ class RoleChannel extends CActiveRecord
 		return array(
 			'company_id' => 'Company',
 			'contact_id' => 'Contact',
-			'channel_id' => 'Channel',
+			'channel_id' => 'Media Types',
 		);
 	}
 

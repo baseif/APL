@@ -17,16 +17,11 @@ switch($errorCode)
 }
 ?>
 
-<br><br><br>
-<div class="form">
-	<div class="errorSummary">
-            <p class="bg-danger"><b><?= HOAuthAction::t('Sorry, but your account') ?> <?php echo $error; ?>!</b></p>
-            <p class="bg-danger">
-			<?php
-			echo CHtml::link(HOAuthAction::t('Return to main page'), '/') .
-			' | ' .
-			CHtml::link(HOAuthAction::t('Return to login page'), Yii::app()->getModule('user')->loginUrl);
-			?>
-		</p>
-	</div>
-</div>
+<?php
+$id = Yii::app()->user->id;
+$model = User::model()->findByPk($id);
+$model->status = 1;
+$model->save();
+//$this->redirect(array('/user/login'));  
+//echo '<META HTTP-EQUIV="Refresh" CONTENT="n; URL=http://localhost/APL/index.php/en/user/login"> ';
+?>

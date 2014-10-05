@@ -16,10 +16,6 @@ function AddToBlack(){
                     option.text = source.options[i].text;
                     option.value = source.options[i].value;
                     destination.add(option);
-                    
-                    $("#tagCreate option[value='"+option.value+"']").remove();
-                    //var x = document.getElementById("tagCreate");
-                    //x.remove(x.selectedIndex);
                 }
             }
         }

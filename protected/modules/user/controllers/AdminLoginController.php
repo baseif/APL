@@ -1,31 +1,27 @@
 <?php
 
-class LoginController extends Controller {
+class AdminLoginController extends Controller {
 
-    public $defaultAction = 'login';
+    public $defaultAction = 'adminlogin';
 
     /**
      * Displays the login page
      */
-    public function actionLogin() {
+    public function actionAdminLogin() {
         if (Yii::app()->user->isGuest) {
-            $model = new UserLogin;
-            $contact = null;
-            // collect user input data
-            if (isset($_POST['UserLogin'])) {
-                $model->attributes = $_POST['UserLogin'];
+            $model = new AdminLogin;
+            // collect admin input data
+            
+            if (isset($_POST['AdminLogin'])) {
+                $model->attributes = $_POST['AdminLogin'];
                 // validate user input and redirect to previous page if valid
                 if ($model->validate()) {
                     $this->lastViset();
-                    $contact = Contact::model()->findByPk(Yii::app()->user->id);
-                    if ($contact != null)
-                        $this->redirect(Yii::app()->request->baseUrl . '/index.php/contact/dashbord/');
-                    else
-                        $this->redirect(Yii::app()->request->baseUrl . '/index.php/Client/dashbord/');
+                    $this->redirect(Yii::app()->request->baseUrl . '/index.php/mailing/index/');            
                 }
             }
             // display the login form
-            $this->render('/user/login', array('model' => $model));
+            $this->render('/user/adminlogin', array('model' => $model));
         } else
             $this->redirect(Yii::app()->controller->module->returnUrl);
     }

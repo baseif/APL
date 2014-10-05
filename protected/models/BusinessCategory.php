@@ -55,7 +55,7 @@ class BusinessCategory extends CActiveRecord
 	{
 		return array(
 			'cat_id' => 'Category',
-			'cat_title' => 'Title',
+			'cat_title' => 'Fields of interest',
 		);
 	}
 

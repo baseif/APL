@@ -91,7 +91,42 @@ function selectCheckbox(eventcheck,allcheckbox){
                     ?>
                     <?php echo $form->error($model, 'contact_gender'); ?>
                 </div>
-
+                
+                
+                <div class="row">
+                    <div class="col-sm-3 control-label" >
+                    <?php echo $form->labelEx($company, 'comp_name'); ?></div>
+                    <?php
+                    
+                    $Criteria = new CDbCriteria();
+                    $Criteria->condition = "comp_id  <> 1";
+                    $data = Company::model()->findAll($Criteria);
+                    
+                                $this->widget('booster.widgets.TbSelect2', array(
+                    'asDropDownList' => true,
+                    'model' => $company,
+                    'attribute' => 'comp_id',
+                    'options' => array(
+                        'placeholder' => $model->getAttributeLabel('company'),
+                        'width' => '40%',
+                        'class' => 'col-sm-5',
+                        'allowClear' => true,
+                        'readonly'=>'true'
+                    ),
+                                    //'htmlOptions' => array('readonly' => 'true',),
+                    'data' => CHtml::listData($data, 'comp_id', 'comp_name')));
+                    ?>
+                    <?php echo $form->error($model, 'contact_gender'); ?>
+                </div>
+                <div class="row">
+                    <div class="form-group"><br />If your company does'nt exist, write here</div>
+                    <div class="form-group">
+                        <label for="Contact_contact_name_ini" class="col-sm-3 control-label">Company / Publisher name</label>
+                        <div class="col-sm-5 col-sm-9">
+                            <input type="text" maxlength="255" id="Contact_contact_comany" name="companyfield" placeholder="Company" class="form-control">   
+                            </div>
+                    </div>
+                </div>
                 <div class="row col-sm-6">
                     <?php
                     echo $form->dropDownListGroup(
@@ -99,11 +134,19 @@ function selectCheckbox(eventcheck,allcheckbox){
                         'wrapperHtmlOptions' => array(
                             'class' => 'col-sm-9',
                             'size' => '20',
+                            
+                            
                         ),
                         'widgetOptions' => array(
                             'data' => CHtml::listData(BusinessCategory::model()->findAll(), 'cat_id', 'cat_title'
+                                    
                             ),
-                            'htmlOptions' => array('multiple' => true, 'style' => 'height:100px'),
+                            
+                            
+
+                            'htmlOptions' => array('multiple' => true, 'style' => 'height:120px'),
+                            
+                            
                     )));
                     ?>
                 </div>   

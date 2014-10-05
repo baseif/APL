@@ -36,7 +36,7 @@ body, table, html, p, a
 	line-height: 18px;
 }
 /*.navbar-header{ background:url(../images/logo-africanpress.png) no-repeat ; width: 200px; height: 71px}*/
-
+#s2id_Company_comp_id{ margin-left: 8px;}
 .nav{ height: 60px;}
 #Payment .required{ display: none;}
 #content h1.title{ margin-top: 45px;}
