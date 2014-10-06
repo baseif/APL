@@ -1,29 +1,30 @@
 <?php
 
-class LoginController extends Controller {
+class JournalistloginController extends Controller {
 
-    public $defaultAction = 'login';
+    public $defaultAction = 'journalistlogin';
 
     /**
      * Displays the login page
      */
-    public function actionLogin() {
+    public function actionJournalistLogin() {
         if (Yii::app()->user->isGuest) {
-            $model = new UserLogin;
-            $client = null;
+            $model = new JournalistLogin;
+            $contact = null;
             // collect user input data
-            if (isset($_POST['UserLogin'])) {
-                $model->attributes = $_POST['UserLogin'];
+            if (isset($_POST['JournalistLogin'])) {
+                $model->attributes = $_POST['JournalistLogin'];
                 // validate user input and redirect to previous page if valid
                 if ($model->validate()) {
                     $this->lastViset();
-                    $client = Client::model()->findByPk(Yii::app()->user->id);
-                    if ($client != null)
-                    $this->redirect(Yii::app()->request->baseUrl . '/index.php/client/dashbord/');              
+                    $contact = Contact::model()->findByPk(Yii::app()->user->id);
+                    if ($contact != null)
+                        $this->redirect(Yii::app()->request->baseUrl . '/index.php/contact/dashbord/');
+                  
                 }
             }
             // display the login form
-            $this->render('/user/login', array('model' => $model));
+            $this->render('/user/journalistlogin', array('model' => $model));
         } else
             $this->redirect(Yii::app()->controller->module->returnUrl);
     }

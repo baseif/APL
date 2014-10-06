@@ -2,10 +2,10 @@
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Erstellungszeit: 04. Sep 2014 um 12:30
--- Server Version: 5.6.17
--- PHP-Version: 5.5.12
+-- Client :  127.0.0.1
+-- Généré le :  Dim 05 Octobre 2014 à 16:09
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Datenbank: `presslist`
+-- Base de données :  `presslist`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `authassignment`
+-- Structure de la table `authassignment`
 --
 
 CREATE TABLE IF NOT EXISTS `authassignment` (
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `authassignment` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `authitem`
+-- Structure de la table `authitem`
 --
 
 CREATE TABLE IF NOT EXISTS `authitem` (
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `authitem` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `authitemchild`
+-- Structure de la table `authitemchild`
 --
 
 CREATE TABLE IF NOT EXISTS `authitemchild` (
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `authitemchild` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `business_category`
+-- Structure de la table `business_category`
 --
 
 CREATE TABLE IF NOT EXISTS `business_category` (
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `business_category` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Daten für Tabelle `business_category`
+-- Contenu de la table `business_category`
 --
 
 INSERT INTO `business_category` (`cat_id`, `cat_title`) VALUES
@@ -87,7 +87,7 @@ INSERT INTO `business_category` (`cat_id`, `cat_title`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `channel`
+-- Structure de la table `channel`
 --
 
 CREATE TABLE IF NOT EXISTS `channel` (
@@ -95,10 +95,10 @@ CREATE TABLE IF NOT EXISTS `channel` (
   `channel_title` varchar(255) NOT NULL COMMENT 'canonical title',
   `channel_category` char(2) DEFAULT NULL COMMENT '(''IN'',''NP'',''MG'',''RA'',''TV'') denotes channel main category',
   PRIMARY KEY (`channel_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Daten für Tabelle `channel`
+-- Contenu de la table `channel`
 --
 
 INSERT INTO `channel` (`channel_id`, `channel_title`, `channel_category`) VALUES
@@ -107,12 +107,13 @@ INSERT INTO `channel` (`channel_id`, `channel_title`, `channel_category`) VALUES
 (3, 'Magazine', 'MG'),
 (4, 'Newspaper', 'NP'),
 (5, 'Internet', 'IN'),
-(6, 'Blog', 'IN');
+(6, 'Blog', 'IN'),
+(7, 'aymen', 'tv');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `channel_translation`
+-- Structure de la table `channel_translation`
 --
 
 CREATE TABLE IF NOT EXISTS `channel_translation` (
@@ -126,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `channel_translation` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `columns_sync_oauth`
+-- Structure de la table `columns_sync_oauth`
 --
 
 CREATE TABLE IF NOT EXISTS `columns_sync_oauth` (
@@ -141,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `columns_sync_oauth` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `company`
+-- Structure de la table `company`
 --
 
 CREATE TABLE IF NOT EXISTS `company` (
@@ -171,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `company` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1000000000 ;
 
 --
--- Daten für Tabelle `company`
+-- Contenu de la table `company`
 --
 
 INSERT INTO `company` (`comp_id`, `comp_group`, `comp_name`, `comp_address`, `comp_address_nr`, `comp_address_nr_addon`, `comp_postal_code`, `comp_city`, `country_iso`, `comp_pub_region`, `comp_pub_country_iso`, `comp_pub_city`, `comp_phone`, `comp_fax`, `comp_email`, `comp_website`, `comp_main_contact`) VALUES
@@ -183,7 +184,7 @@ INSERT INTO `company` (`comp_id`, `comp_group`, `comp_name`, `comp_address`, `co
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `contact`
+-- Structure de la table `contact`
 --
 
 CREATE TABLE IF NOT EXISTS `contact` (
@@ -214,12 +215,19 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`contact_id`),
   KEY `contact_iso_country` (`contact_iso_country`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=203 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Contenu de la table `contact`
+--
+
+INSERT INTO `contact` (`contact_id`, `contact_email`, `contact_name_ini`, `contact_name_first`, `contact_name_last`, `contact_gender`, `contact_adress`, `contact_address_nr`, `contact_address_addon`, `contact_iso_country`, `contact_city`, `contact_phone`, `contact_website`, `contact_tw`, `contact_fb`, `contact_go`, `contact_yt`, `contact_li`, `contact_bio`, `contact_is_imported`, `contact_imported_src`, `contact_status`, `contact_login_pass`, `profile`, `status`) VALUES
+(6, 'journalistmas@me.com', '', 'mohamed', 'mastouri', 'M', '', NULL, '', NULL, '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '7de8372ca35198b87181828b57ce252a', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `contact_category`
+-- Structure de la table `contact_category`
 --
 
 CREATE TABLE IF NOT EXISTS `contact_category` (
@@ -232,10 +240,17 @@ CREATE TABLE IF NOT EXISTS `contact_category` (
   KEY `contact_id_2` (`contact_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `contact_category`
+--
+
+INSERT INTO `contact_category` (`contact_id`, `cat_id`) VALUES
+(6, 1);
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `contact_client_blacklist`
+-- Structure de la table `contact_client_blacklist`
 --
 
 CREATE TABLE IF NOT EXISTS `contact_client_blacklist` (
@@ -248,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `contact_client_blacklist` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `contact_function`
+-- Structure de la table `contact_function`
 --
 
 CREATE TABLE IF NOT EXISTS `contact_function` (
@@ -260,10 +275,17 @@ CREATE TABLE IF NOT EXISTS `contact_function` (
   KEY `fk_cont_fonct` (`contact_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `contact_function`
+--
+
+INSERT INTO `contact_function` (`company_id`, `contact_id`, `function_id`) VALUES
+(3, 6, 1);
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `contact_geo_coverage`
+-- Structure de la table `contact_geo_coverage`
 --
 
 CREATE TABLE IF NOT EXISTS `contact_geo_coverage` (
@@ -276,10 +298,17 @@ CREATE TABLE IF NOT EXISTS `contact_geo_coverage` (
   KEY `company_id` (`company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `contact_geo_coverage`
+--
+
+INSERT INTO `contact_geo_coverage` (`company_id`, `contact_id`, `geo_country_id`) VALUES
+(1, 6, 788);
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `contact_language`
+-- Structure de la table `contact_language`
 --
 
 CREATE TABLE IF NOT EXISTS `contact_language` (
@@ -289,10 +318,18 @@ CREATE TABLE IF NOT EXISTS `contact_language` (
   KEY `fk_iso_lang` (`lang_iso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `contact_language`
+--
+
+INSERT INTO `contact_language` (`contact_id`, `lang_iso`) VALUES
+(6, 'ara'),
+(6, 'eng');
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `contact_oauth`
+-- Structure de la table `contact_oauth`
 --
 
 CREATE TABLE IF NOT EXISTS `contact_oauth` (
@@ -308,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `contact_oauth` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `continents`
+-- Structure de la table `continents`
 --
 
 CREATE TABLE IF NOT EXISTS `continents` (
@@ -318,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `continents` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Daten für Tabelle `continents`
+-- Contenu de la table `continents`
 --
 
 INSERT INTO `continents` (`code`, `name`) VALUES
@@ -333,7 +370,7 @@ INSERT INTO `continents` (`code`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `credit`
+-- Structure de la table `credit`
 --
 
 CREATE TABLE IF NOT EXISTS `credit` (
@@ -344,12 +381,20 @@ CREATE TABLE IF NOT EXISTS `credit` (
   `credit_duration` int(10) NOT NULL COMMENT 'duration in days for purchase',
   `credit_notes` mediumtext NOT NULL COMMENT 'opt notes',
   PRIMARY KEY (`credit_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `credit`
+--
+
+INSERT INTO `credit` (`credit_id`, `credit_show`, `credit_amount`, `credit_price`, `credit_duration`, `credit_notes`) VALUES
+(1, 'N', NULL, '0', 0, ''),
+(2, 'N', NULL, '0', 0, '');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `credit_history`
+-- Structure de la table `credit_history`
 --
 
 CREATE TABLE IF NOT EXISTS `credit_history` (
@@ -368,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `credit_history` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `credit_package`
+-- Structure de la table `credit_package`
 --
 
 CREATE TABLE IF NOT EXISTS `credit_package` (
@@ -380,12 +425,20 @@ CREATE TABLE IF NOT EXISTS `credit_package` (
   PRIMARY KEY (`credit_package_id`),
   UNIQUE KEY `extention_credit_id (1)` (`extention_credit_id`),
   KEY `basic_credit_id (1)` (`basic_credit_id`,`extention_credit_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `credit_package`
+--
+
+INSERT INTO `credit_package` (`credit_package_id`, `basic_credit_id`, `extention_credit_id`, `package_title`, `package_rank`) VALUES
+(1, 1, NULL, '', 0),
+(2, 2, NULL, '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `function`
+-- Structure de la table `function`
 --
 
 CREATE TABLE IF NOT EXISTS `function` (
@@ -395,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `function` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Daten für Tabelle `function`
+-- Contenu de la table `function`
 --
 
 INSERT INTO `function` (`function_id`, `function_title`) VALUES
@@ -407,7 +460,7 @@ INSERT INTO `function` (`function_id`, `function_title`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `function_translation`
+-- Structure de la table `function_translation`
 --
 
 CREATE TABLE IF NOT EXISTS `function_translation` (
@@ -421,7 +474,7 @@ CREATE TABLE IF NOT EXISTS `function_translation` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `geo_cluster`
+-- Structure de la table `geo_cluster`
 --
 
 CREATE TABLE IF NOT EXISTS `geo_cluster` (
@@ -433,7 +486,7 @@ CREATE TABLE IF NOT EXISTS `geo_cluster` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `geo_region`
+-- Structure de la table `geo_region`
 --
 
 CREATE TABLE IF NOT EXISTS `geo_region` (
@@ -443,7 +496,7 @@ CREATE TABLE IF NOT EXISTS `geo_region` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
--- Daten für Tabelle `geo_region`
+-- Contenu de la table `geo_region`
 --
 
 INSERT INTO `geo_region` (`geo_region_id`, `region_name`) VALUES
@@ -462,7 +515,7 @@ INSERT INTO `geo_region` (`geo_region_id`, `region_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `geo_region_cluster`
+-- Structure de la table `geo_region_cluster`
 --
 
 CREATE TABLE IF NOT EXISTS `geo_region_cluster` (
@@ -476,7 +529,7 @@ CREATE TABLE IF NOT EXISTS `geo_region_cluster` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `iso_country`
+-- Structure de la table `iso_country`
 --
 
 CREATE TABLE IF NOT EXISTS `iso_country` (
@@ -492,7 +545,7 @@ CREATE TABLE IF NOT EXISTS `iso_country` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Daten für Tabelle `iso_country`
+-- Contenu de la table `iso_country`
 --
 
 INSERT INTO `iso_country` (`country_iso`, `country_name`, `geo_region_id`, `continent_code`) VALUES
@@ -699,7 +752,7 @@ INSERT INTO `iso_country` (`country_iso`, `country_name`, `geo_region_id`, `cont
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `iso_language`
+-- Structure de la table `iso_language`
 --
 
 CREATE TABLE IF NOT EXISTS `iso_language` (
@@ -710,7 +763,7 @@ CREATE TABLE IF NOT EXISTS `iso_language` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Daten für Tabelle `iso_language`
+-- Contenu de la table `iso_language`
 --
 
 INSERT INTO `iso_language` (`lang_iso`, `language`, `Native_language`) VALUES
@@ -722,7 +775,7 @@ INSERT INTO `iso_language` (`lang_iso`, `language`, `Native_language`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `list`
+-- Structure de la table `list`
 --
 
 CREATE TABLE IF NOT EXISTS `list` (
@@ -734,12 +787,12 @@ CREATE TABLE IF NOT EXISTS `list` (
   `list_modified` int(11) NOT NULL,
   PRIMARY KEY (`list_id`),
   KEY `list_user` (`list_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `list_contact`
+-- Structure de la table `list_contact`
 --
 
 CREATE TABLE IF NOT EXISTS `list_contact` (
@@ -752,7 +805,7 @@ CREATE TABLE IF NOT EXISTS `list_contact` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `mailing`
+-- Structure de la table `mailing`
 --
 
 CREATE TABLE IF NOT EXISTS `mailing` (
@@ -767,7 +820,7 @@ CREATE TABLE IF NOT EXISTS `mailing` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `mailing_file`
+-- Structure de la table `mailing_file`
 --
 
 CREATE TABLE IF NOT EXISTS `mailing_file` (
@@ -780,7 +833,7 @@ CREATE TABLE IF NOT EXISTS `mailing_file` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `packaged_credit`
+-- Structure de la table `packaged_credit`
 --
 
 CREATE TABLE IF NOT EXISTS `packaged_credit` (
@@ -794,7 +847,7 @@ CREATE TABLE IF NOT EXISTS `packaged_credit` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `paypal_transactions`
+-- Structure de la table `paypal_transactions`
 --
 
 CREATE TABLE IF NOT EXISTS `paypal_transactions` (
@@ -813,12 +866,12 @@ CREATE TABLE IF NOT EXISTS `paypal_transactions` (
   `pp_text` text COMMENT 'opt. note or NIL',
   PRIMARY KEY (`pp_id`),
   KEY `pp_user_id` (`pp_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `press`
+-- Structure de la table `press`
 --
 
 CREATE TABLE IF NOT EXISTS `press` (
@@ -849,12 +902,12 @@ CREATE TABLE IF NOT EXISTS `press` (
   KEY `press_id` (`press_id`),
   KEY `list_id` (`list_id`),
   KEY `press_user` (`press_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `press_journalist`
+-- Structure de la table `press_journalist`
 --
 
 CREATE TABLE IF NOT EXISTS `press_journalist` (
@@ -871,7 +924,7 @@ CREATE TABLE IF NOT EXISTS `press_journalist` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `press_run`
+-- Structure de la table `press_run`
 --
 
 CREATE TABLE IF NOT EXISTS `press_run` (
@@ -886,7 +939,7 @@ CREATE TABLE IF NOT EXISTS `press_run` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `profiles`
+-- Structure de la table `profiles`
 --
 
 CREATE TABLE IF NOT EXISTS `profiles` (
@@ -914,12 +967,12 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `city` varchar(50) DEFAULT NULL,
   `zip` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=190 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `profiles_fields`
+-- Structure de la table `profiles_fields`
 --
 
 CREATE TABLE IF NOT EXISTS `profiles_fields` (
@@ -944,7 +997,7 @@ CREATE TABLE IF NOT EXISTS `profiles_fields` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Daten für Tabelle `profiles_fields`
+-- Contenu de la table `profiles_fields`
 --
 
 INSERT INTO `profiles_fields` (`id`, `varname`, `title`, `field_type`, `field_size`, `field_size_min`, `required`, `match`, `range`, `error_message`, `other_validator`, `default`, `widget`, `widgetparams`, `position`, `visible`) VALUES
@@ -954,7 +1007,7 @@ INSERT INTO `profiles_fields` (`id`, `varname`, `title`, `field_type`, `field_si
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `rights`
+-- Structure de la table `rights`
 --
 
 CREATE TABLE IF NOT EXISTS `rights` (
@@ -967,7 +1020,7 @@ CREATE TABLE IF NOT EXISTS `rights` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `role_channel`
+-- Structure de la table `role_channel`
 --
 
 CREATE TABLE IF NOT EXISTS `role_channel` (
@@ -979,10 +1032,17 @@ CREATE TABLE IF NOT EXISTS `role_channel` (
   KEY `channel_id` (`channel_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `role_channel`
+--
+
+INSERT INTO `role_channel` (`company_id`, `contact_id`, `channel_id`) VALUES
+(1, 6, 2);
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `system_oauth`
+-- Structure de la table `system_oauth`
 --
 
 CREATE TABLE IF NOT EXISTS `system_oauth` (
@@ -996,7 +1056,7 @@ CREATE TABLE IF NOT EXISTS `system_oauth` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `user`
+-- Structure de la table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -1036,17 +1096,25 @@ CREATE TABLE IF NOT EXISTS `user` (
   `profile` int(11) NOT NULL DEFAULT '0',
   `status` int(11) NOT NULL DEFAULT '1',
   `credittype` int(11) NOT NULL,
+  `termofuse` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `porfile_camp_country` (`porfile_camp_country`),
   KEY `user_package_id` (`user_package_id`),
   KEY `porfile_country` (`porfile_country`),
   KEY `porfile_camp_country_2` (`porfile_camp_country`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=217 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Contenu de la table `user`
+--
+
+INSERT INTO `user` (`user_id`, `user_package_id`, `user_pass`, `user_credits`, `user_registered`, `user_verified`, `user_activity`, `user_deactivated`, `user_password_request`, `user_email`, `porfile_initials`, `porfile_name_first`, `porfile_name_last`, `porfile_address`, `porfile_address_nr`, `porfile_address_addon`, `porfile_city`, `porfile_country`, `porfile_phone`, `porfile_mobile`, `porfile_camp_name`, `porfile_camp_function`, `porfile_camp_country`, `porfile_camp_account`, `porfile_camp_email`, `porfile_camp_website`, `porfile_coc`, `profile_remarks`, `usetting_sender_name`, `usetting_sender_email`, `usetting_replyto_name`, `usetting_replyto_email`, `usetting_bounce_email`, `profile`, `status`, `credittype`, `termofuse`) VALUES
+(5, NULL, '167cbdf27b0ff1d135e2b7189570ff60', NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', 'clientmas@me.com', '', 'Ayman', 'aymen', '', NULL, '', '', 004, '0021671050204', '', 'Esprit_Compnay', '', 060, NULL, 'mohamedaymen.mastouri@gmail.com', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 2, 1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `users`
+-- Structure de la table `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -1059,17 +1127,27 @@ CREATE TABLE IF NOT EXISTS `users` (
   `lastvisit_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `superuser` int(1) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '0',
+  `dtype` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`),
   KEY `superuser` (`superuser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=217 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Contenu de la table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`, `dtype`) VALUES
+(5, 'mastouri', 'b624425ac0ca9728fc9b27033f61d59d', 'clientmas@me.com', 'a0a9ccbaa4f111ef7c57f1106fb7dcd3', '2014-10-05 09:18:00', '2014-10-05 10:18:38', 0, 1, 'client'),
+(6, 'mastourij', 'b624425ac0ca9728fc9b27033f61d59d', 'journalistmas@me.com', '5e457b08cf8342ffa3a528eefc83162b', '2014-10-05 09:20:37', '2014-10-05 10:22:10', 0, 1, 'journalist'),
+(7, 'adminmas', 'b624425ac0ca9728fc9b27033f61d59d', 'admin@me.com', '669003f1d39b83ab93cccba4812be6ae', '2014-10-05 09:33:13', '0000-00-00 00:00:00', 1, 1, '');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `user_oauth`
+-- Structure de la table `user_oauth`
 --
 
 CREATE TABLE IF NOT EXISTS `user_oauth` (
@@ -1086,7 +1164,7 @@ CREATE TABLE IF NOT EXISTS `user_oauth` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `user_package`
+-- Structure de la table `user_package`
 --
 
 CREATE TABLE IF NOT EXISTS `user_package` (
@@ -1100,10 +1178,18 @@ CREATE TABLE IF NOT EXISTS `user_package` (
   KEY `credit_package_id` (`credit_package_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `user_package`
+--
+
+INSERT INTO `user_package` (`user_id`, `credit_package_id`, `voucher_code`, `utype_credits`, `utype_expires`, `utype_notes`) VALUES
+(3, 1, NULL, NULL, NULL, ''),
+(5, 2, NULL, NULL, NULL, '');
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `web_menu`
+-- Structure de la table `web_menu`
 --
 
 CREATE TABLE IF NOT EXISTS `web_menu` (
@@ -1126,7 +1212,7 @@ CREATE TABLE IF NOT EXISTS `web_menu` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Created with Autoform 2009' AUTO_INCREMENT=34 ;
 
 --
--- Daten für Tabelle `web_menu`
+-- Contenu de la table `web_menu`
 --
 
 INSERT INTO `web_menu` (`menu_id`, `menu_title`, `menu_title_c`, `menu_parent`, `menu_path`, `menu_header`, `menu_header_c`, `menu_order`, `menu_type`, `menu_online`, `menu_content`, `menu_lang_country`, `menu_lang_group`, `menu_added`) VALUES
@@ -1160,37 +1246,37 @@ INSERT INTO `web_menu` (`menu_id`, `menu_title`, `menu_title_c`, `menu_parent`, 
 (33, 'Press', 'press', 8, NULL, 'Press Releases', 'press-releases', 999, 'press_overview', 'Online', '', 30, 26, '2012-06-11 10:19:42');
 
 --
--- Constraints der exportierten Tabellen
+-- Contraintes pour les tables exportées
 --
 
 --
--- Constraints der Tabelle `authassignment`
+-- Contraintes pour la table `authassignment`
 --
 ALTER TABLE `authassignment`
   ADD CONSTRAINT `AuthAssignment_ibfk_1` FOREIGN KEY (`itemname`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints der Tabelle `authitemchild`
+-- Contraintes pour la table `authitemchild`
 --
 ALTER TABLE `authitemchild`
   ADD CONSTRAINT `authitemchild_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `authitemchild_ibfk_2` FOREIGN KEY (`child`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints der Tabelle `channel_translation`
+-- Contraintes pour la table `channel_translation`
 --
 ALTER TABLE `channel_translation`
   ADD CONSTRAINT `fk_channel_id_tran` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`),
   ADD CONSTRAINT `fk_lang_iso` FOREIGN KEY (`lang_iso`) REFERENCES `iso_language` (`lang_iso`);
 
 --
--- Constraints der Tabelle `columns_sync_oauth`
+-- Contraintes pour la table `columns_sync_oauth`
 --
 ALTER TABLE `columns_sync_oauth`
   ADD CONSTRAINT `fk_systeme_oauth` FOREIGN KEY (`platform_id`) REFERENCES `system_oauth` (`system_oauth`);
 
 --
--- Constraints der Tabelle `company`
+-- Contraintes pour la table `company`
 --
 ALTER TABLE `company`
   ADD CONSTRAINT `fk_comp_country` FOREIGN KEY (`country_iso`) REFERENCES `iso_country` (`country_iso`),
@@ -1198,27 +1284,27 @@ ALTER TABLE `company`
   ADD CONSTRAINT `fk_comp_region_pub` FOREIGN KEY (`comp_pub_region`) REFERENCES `geo_region` (`geo_region_id`);
 
 --
--- Constraints der Tabelle `contact`
+-- Contraintes pour la table `contact`
 --
 ALTER TABLE `contact`
   ADD CONSTRAINT `fk_conact_iso_cont` FOREIGN KEY (`contact_iso_country`) REFERENCES `iso_country` (`country_iso`);
 
 --
--- Constraints der Tabelle `contact_category`
+-- Contraintes pour la table `contact_category`
 --
 ALTER TABLE `contact_category`
   ADD CONSTRAINT `contact_category_ibfk_2` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`contact_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `contact_category_ibfk_3` FOREIGN KEY (`cat_id`) REFERENCES `business_category` (`cat_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `contact_client_blacklist`
+-- Contraintes pour la table `contact_client_blacklist`
 --
 ALTER TABLE `contact_client_blacklist`
   ADD CONSTRAINT `contact_client_blacklist_ibfk_1` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`contact_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `contact_client_blacklist_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `contact_function`
+-- Contraintes pour la table `contact_function`
 --
 ALTER TABLE `contact_function`
   ADD CONSTRAINT `contact_function_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`comp_id`) ON DELETE CASCADE,
@@ -1226,115 +1312,115 @@ ALTER TABLE `contact_function`
   ADD CONSTRAINT `contact_function_ibfk_3` FOREIGN KEY (`function_id`) REFERENCES `function` (`function_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `contact_geo_coverage`
+-- Contraintes pour la table `contact_geo_coverage`
 --
 ALTER TABLE `contact_geo_coverage`
-  ADD CONSTRAINT `contact_geo_coverage_ibfk_3` FOREIGN KEY (`geo_country_id`) REFERENCES `iso_country` (`country_iso`) ON DELETE CASCADE,
   ADD CONSTRAINT `contact_geo_coverage_ibfk_1` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`contact_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `contact_geo_coverage_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `company` (`comp_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `contact_geo_coverage_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `company` (`comp_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `contact_geo_coverage_ibfk_3` FOREIGN KEY (`geo_country_id`) REFERENCES `iso_country` (`country_iso`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `contact_language`
+-- Contraintes pour la table `contact_language`
 --
 ALTER TABLE `contact_language`
   ADD CONSTRAINT `contact_language_ibfk_1` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`contact_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `contact_language_ibfk_2` FOREIGN KEY (`lang_iso`) REFERENCES `iso_language` (`lang_iso`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `contact_oauth`
+-- Contraintes pour la table `contact_oauth`
 --
 ALTER TABLE `contact_oauth`
   ADD CONSTRAINT `fk_sysyrme_oauth` FOREIGN KEY (`platform_id`) REFERENCES `system_oauth` (`system_oauth`);
 
 --
--- Constraints der Tabelle `credit_history`
+-- Contraintes pour la table `credit_history`
 --
 ALTER TABLE `credit_history`
-  ADD CONSTRAINT `fk_user_credit` FOREIGN KEY (`ch_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_credit_history_list` FOREIGN KEY (`ch_target_id`) REFERENCES `list` (`list_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_credit_history_list` FOREIGN KEY (`ch_target_id`) REFERENCES `list` (`list_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_user_credit` FOREIGN KEY (`ch_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `credit_package`
+-- Contraintes pour la table `credit_package`
 --
 ALTER TABLE `credit_package`
   ADD CONSTRAINT `fk_extention_credit_package` FOREIGN KEY (`extention_credit_id`) REFERENCES `credit` (`credit_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_list_credit_package` FOREIGN KEY (`basic_credit_id`) REFERENCES `credit` (`credit_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `function_translation`
+-- Contraintes pour la table `function_translation`
 --
 ALTER TABLE `function_translation`
   ADD CONSTRAINT `fk_fn_language` FOREIGN KEY (`lang_iso`) REFERENCES `iso_language` (`lang_iso`),
   ADD CONSTRAINT `fk_function_id` FOREIGN KEY (`function_id`) REFERENCES `function` (`function_id`);
 
 --
--- Constraints der Tabelle `geo_region_cluster`
+-- Contraintes pour la table `geo_region_cluster`
 --
 ALTER TABLE `geo_region_cluster`
   ADD CONSTRAINT `fk_geo_cluster` FOREIGN KEY (`geo_cluster_id`) REFERENCES `geo_cluster` (`geo_cluster_id`),
   ADD CONSTRAINT `fk_geo_region_id` FOREIGN KEY (`geo_region_id`) REFERENCES `geo_region` (`geo_region_id`);
 
 --
--- Constraints der Tabelle `iso_country`
+-- Contraintes pour la table `iso_country`
 --
 ALTER TABLE `iso_country`
   ADD CONSTRAINT `fk_countries_continents` FOREIGN KEY (`continent_code`) REFERENCES `continents` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_countries_regions` FOREIGN KEY (`geo_region_id`) REFERENCES `geo_region` (`geo_region_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints der Tabelle `list`
+-- Contraintes pour la table `list`
 --
 ALTER TABLE `list`
   ADD CONSTRAINT `fk_id_user_list` FOREIGN KEY (`list_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `list_contact`
+-- Contraintes pour la table `list_contact`
 --
 ALTER TABLE `list_contact`
   ADD CONSTRAINT `list_contact_ibfk_2` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `list_contact_ibfk_3` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`contact_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `mailing_file`
+-- Contraintes pour la table `mailing_file`
 --
 ALTER TABLE `mailing_file`
   ADD CONSTRAINT `mailing_file_ibfk_1` FOREIGN KEY (`mailing_id`) REFERENCES `mailing` (`mailing_id`),
   ADD CONSTRAINT `mailing_file_ibfk_2` FOREIGN KEY (`file_id`) REFERENCES `mailing_file` (`mailing_id`);
 
 --
--- Constraints der Tabelle `packaged_credit`
+-- Contraintes pour la table `packaged_credit`
 --
 ALTER TABLE `packaged_credit`
-  ADD CONSTRAINT `packaged_credit_ibfk_1` FOREIGN KEY (`credit_id`) REFERENCES `credit` (`credit_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_credit_package_credit` FOREIGN KEY (`credit_package_id`) REFERENCES `credit_package` (`credit_package_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_credit_package_credit` FOREIGN KEY (`credit_package_id`) REFERENCES `credit_package` (`credit_package_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `packaged_credit_ibfk_1` FOREIGN KEY (`credit_id`) REFERENCES `credit` (`credit_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `paypal_transactions`
+-- Contraintes pour la table `paypal_transactions`
 --
 ALTER TABLE `paypal_transactions`
   ADD CONSTRAINT `fk_user_pp` FOREIGN KEY (`pp_user_id`) REFERENCES `user` (`user_id`);
 
 --
--- Constraints der Tabelle `press`
+-- Contraintes pour la table `press`
 --
 ALTER TABLE `press`
   ADD CONSTRAINT `fk_list_id_press` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_user_id_press` FOREIGN KEY (`press_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `profiles`
+-- Contraintes pour la table `profiles`
 --
 ALTER TABLE `profiles`
   ADD CONSTRAINT `user_profile_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints der Tabelle `rights`
+-- Contraintes pour la table `rights`
 --
 ALTER TABLE `rights`
   ADD CONSTRAINT `rights_ibfk_1` FOREIGN KEY (`itemname`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints der Tabelle `role_channel`
+-- Contraintes pour la table `role_channel`
 --
 ALTER TABLE `role_channel`
   ADD CONSTRAINT `role_channel_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`comp_id`) ON DELETE CASCADE,
@@ -1342,15 +1428,15 @@ ALTER TABLE `role_channel`
   ADD CONSTRAINT `role_channel_ibfk_3` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `user`
+-- Contraintes pour la table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `fk_profil_country` FOREIGN KEY (`porfile_country`) REFERENCES `iso_country` (`country_iso`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_camp_country` FOREIGN KEY (`porfile_camp_country`) REFERENCES `iso_country` (`country_iso`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_profil_country` FOREIGN KEY (`porfile_country`) REFERENCES `iso_country` (`country_iso`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_user_package_id` FOREIGN KEY (`user_package_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `user_package`
+-- Contraintes pour la table `user_package`
 --
 ALTER TABLE `user_package`
   ADD CONSTRAINT `fk_user_package` FOREIGN KEY (`credit_package_id`) REFERENCES `credit_package` (`credit_package_id`);

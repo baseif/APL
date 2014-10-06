@@ -24,21 +24,21 @@ class UserIdentity extends CUserIdentity {
         return $this->errorCode == self::ERROR_NONE;
     }
 
-    public function authenticate1()
-    {
-        $user=  Contact::model()->find('LOWER(contact_email)=?', array(strtolower($this->username)));
-        if($user===null)
-            $this->errorCode=self::ERROR_USERNAME_INVALID;
-        else if(!$user->validatePassword($this->password))
-            $this->errorCode=self::ERROR_PASSWORD_INVALID;
-        else
-        {
-            $this->_id=$user->contact_id;
-            $this->username=$user->contact_email;
-            $this->errorCode=self::ERROR_NONE;
-        }
-        return $this->errorCode==self::ERROR_NONE;
-    }
+//    public function authenticate1()
+//    {
+//        $user=  Contact::model()->find('LOWER(contact_email)=?', array(strtolower($this->username)));
+//        if($user===null)
+//            $this->errorCode=self::ERROR_USERNAME_INVALID;
+//        else if(!$user->validatePassword($this->password))
+//            $this->errorCode=self::ERROR_PASSWORD_INVALID;
+//        else
+//        {
+//            $this->_id=$user->contact_id;
+//            $this->username=$user->contact_email;
+//            $this->errorCode=self::ERROR_NONE;
+//        }
+//        return $this->errorCode==self::ERROR_NONE;
+//    }
 
     public function getId() {
         return $this->_id;

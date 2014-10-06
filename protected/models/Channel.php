@@ -59,8 +59,9 @@ class Channel extends CActiveRecord
 	{
 		return array(
 			'channel_id' => 'Media Types',
-			'channel_title' => 'Media Types',
-			'channel_category' => 'Media Types',
+			'channel_title' => 'Media Types title',
+			'channel_category' => 'Media Types category',
+
 		);
 	}
 

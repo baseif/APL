@@ -22,9 +22,63 @@ class UserIdentity extends CUserIdentity
 	public function authenticate()
 	{
 		if (strpos($this->username,"@")) {
-			$user=User::model()->notsafe()->findByAttributes(array('email'=>$this->username));
+			$user=User::model()->notsafe()->findByAttributes(array('email'=>$this->username,'dtype'=>'client'));
 		} else {
-			$user=User::model()->notsafe()->findByAttributes(array('username'=>$this->username));
+			$user=User::model()->notsafe()->findByAttributes(array('username'=>$this->username,'dtype'=>'client'));
+		}
+		if($user===null)
+			if (strpos($this->username,"@")) {
+				$this->errorCode=self::ERROR_EMAIL_INVALID;
+			} else {
+				$this->errorCode=self::ERROR_USERNAME_INVALID;
+			}
+		else if(Yii::app()->getModule('user')->encrypting($this->password)!==$user->password)
+			$this->errorCode=self::ERROR_PASSWORD_INVALID;
+		else if($user->status==0&&Yii::app()->getModule('user')->loginNotActiv==false)
+			$this->errorCode=self::ERROR_STATUS_NOTACTIV;
+		else if($user->status==-1)
+			$this->errorCode=self::ERROR_STATUS_BAN;
+		else {
+			$this->_id=$user->id;
+			$this->username=$user->username;
+			$this->errorCode=self::ERROR_NONE;
+		}
+		return !$this->errorCode;
+	}
+        
+        public function authenticate1()
+	{
+		if (strpos($this->username,"@")) {
+			$user=User::model()->notsafe()->findByAttributes(array('email'=>$this->username,'dtype'=>'journalist'));
+		} else {
+			$user=User::model()->notsafe()->findByAttributes(array('username'=>$this->username,'dtype'=>'journalist'));
+		}
+		if($user===null)
+			if (strpos($this->username,"@")) {
+				$this->errorCode=self::ERROR_EMAIL_INVALID;
+			} else {
+				$this->errorCode=self::ERROR_USERNAME_INVALID;
+			}
+		else if(Yii::app()->getModule('user')->encrypting($this->password)!==$user->password)
+			$this->errorCode=self::ERROR_PASSWORD_INVALID;
+		else if($user->status==0&&Yii::app()->getModule('user')->loginNotActiv==false)
+			$this->errorCode=self::ERROR_STATUS_NOTACTIV;
+		else if($user->status==-1)
+			$this->errorCode=self::ERROR_STATUS_BAN;
+		else {
+			$this->_id=$user->id;
+			$this->username=$user->username;
+			$this->errorCode=self::ERROR_NONE;
+		}
+		return !$this->errorCode;
+	}
+        
+        public function authenticate2()
+	{
+		if (strpos($this->username,"@")) {
+			$user=User::model()->notsafe()->findByAttributes(array('email'=>$this->username,'superuser'=>1));
+		} else {
+			$user=User::model()->notsafe()->findByAttributes(array('username'=>$this->username,'superuser'=>1));
 		}
 		if($user===null)
 			if (strpos($this->username,"@")) {

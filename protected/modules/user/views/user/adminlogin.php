@@ -16,7 +16,7 @@ $this->breadcrumbs = array(
 ?>
 <!--
 <h1><?php // echo UserModule::t("Login");   ?></h1>-->
-<h1><?php echo  Yii::t('app','My Space As Client');?></h1>
+<h1><?php echo  Yii::t('app','Administrator ');?></h1>
 
 
 
@@ -30,9 +30,6 @@ $this->breadcrumbs = array(
         </div>
 
     <?php endif; ?>
-
-    <p><?php echo UserModule::t("Please fill out the following form with your login credentials:"); ?></p>
-
 
  <!--<div class="form col-sm-10 well">-->
 
@@ -52,8 +49,6 @@ $this->breadcrumbs = array(
             ));
             ?>
 
-
-            <p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
 
             <?php echo CHtml::errorSummary($model); ?>
 
@@ -78,22 +73,18 @@ $this->breadcrumbs = array(
                 <?php // echo CHtml::activePasswordField($model, 'password') ?>
             </div>
 
-            <div class="row">
-                <p >
-                    <?php  echo CHtml::link(UserModule::t("Register"), Yii::app()->getModule('user')->registrationUrl); ?> | <?php  echo CHtml::link(UserModule::t("Lost Password?"), Yii::app()->getModule('user')->recoveryUrl); ?>
-                </p>
-            </div>
+          
 
-            <div class= col-sm-10">
+<!--            <div class= col-sm-10">
                  <?php
-                echo $form->checkboxGroup($model, 'rememberMe', array('size' => 60, 'maxlength' => 255,
-                    'wrapperHtmlOptions' => array('class' => 'col-sm-9'),
-                ));
+//                echo $form->checkboxGroup($model, 'rememberMe', array('size' => 60, 'maxlength' => 255,
+//                    'wrapperHtmlOptions' => array('class' => 'col-sm-9'),
+//                ));
                 ?>
                
                 <?php // echo CHtml::activeCheckBox($model, 'rememberMe'); ?>
                 <?php // echo CHtml::activeLabelEx($model, 'rememberMe'); ?>
-            </div>
+            </div>-->
 
             <div class="row">
              <div class="buttons pull-right" >
@@ -137,4 +128,13 @@ $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit',
 //                ), $model);
         ?><?php $this->endWidget(); ?>
         </div>
-    
+<!--    <div class="span-5" >
+        <div class="span-8 journalist">
+            <div class="push-13">
+  
+             <div style="margin-top: -250px;">
+                   <?php // $this->widget('ext.hoauth.widgets.HOAuth'); ?>    
+                </div>
+            </div> </div>
+
+    </div>-->

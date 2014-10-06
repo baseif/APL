@@ -55,7 +55,8 @@ return array(
             #page edit registee
                'returnEditUrl' => array('/user/editregistration'),
             # page after logout
-            'returnLogoutUrl' => array('/user/login'),
+            'returnLogoutUrl' => array('/site/index'),
+            
         ),
         'rights' => array(
             'superuserName' => 'Admin', // Name of the role with super user privileges.
@@ -221,7 +222,7 @@ return array(
        // ),
         // uncomment the following to use a MySQL database
         'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=africanpress_db_1',
+            'connectionString' => 'mysql:host=localhost;dbname=presslist',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => 'root',

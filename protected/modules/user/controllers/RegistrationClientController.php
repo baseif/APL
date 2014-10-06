@@ -37,6 +37,8 @@ class RegistrationClientController extends Controller {
         } else {
             if (isset($_POST['RegistrationForm'], $_POST['Client'])) {
                 $model->attributes = $_POST['RegistrationForm'];
+                $model->dtype = "client";
+                
                 $Client->attributes = $_POST['Client'];
                 $Client->porfile_address = $_POST['Client']['porfile_address'];
                 $Client->porfile_address_nr = $_POST['Client']['porfile_address_nr'];
