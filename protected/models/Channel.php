@@ -58,9 +58,9 @@ class Channel extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'channel_id' => 'Channel',
-			'channel_title' => 'Channel Title',
-			'channel_category' => 'Channel Category',
+			'channel_id' => 'Media Types',
+			'channel_title' => 'Media Types',
+			'channel_category' => 'Media Types',
 		);
 	}
 

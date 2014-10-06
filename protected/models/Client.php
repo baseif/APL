@@ -257,4 +257,25 @@ class Client extends CActiveRecord
         );
     }
     
+    public function CleanClient($client_id){
+      
+        if(count($client_id)>0){
+            foreach($client_id as $value){
+                $array[] = $value->user_id;
+            }
+        
+            $chaine_client_id = implode(',', $array);
+            $client_id = Client::model()->findAllBySql("select user_id,porfile_name_first,porfile_name_last from user where user_id not in ($chaine_client_id)");
+        }
+        else{
+            
+            $client_id = Client::model()->findALL();
+        }
+
+        return $client_id;
+
+    }
+    
+    
+    
 }

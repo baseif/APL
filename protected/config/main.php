@@ -52,6 +52,8 @@ return array(
             'loginUrl' => array('/user/login'),
             # page after login
             'returnUrl' => array('/user/profile'),
+            #page edit registee
+               'returnEditUrl' => array('/user/editregistration'),
             # page after logout
             'returnLogoutUrl' => array('/user/login'),
         ),

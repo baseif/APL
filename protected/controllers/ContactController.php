@@ -170,13 +170,24 @@ class ContactController extends Controller {
      */
     public function actionUpdate() {
         
+         $categories = new BusinessCategory;
+                $iso_language = new IsoLanguage;
+                $company = new Company;
+                $channel = new Channel;
+                $function = new Functions;
 
          $model = Contact::model()->findByPk(Yii::app()->user->id);
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Contact']))
-		{
+		if(isset($_POST['Contact'])){
+                    
+                    $contact_id = Yii::app()->user->id;
+                    
+                    ContactGeoCoverage::model()->deleteGeoCoverage($model->contact_id);
+                        ContactFunction::model()->deleteFunction($model->contact_id);
+                        RoleChannel::model()->deleteChannel($model->contact_id);
+                    
 			$model->attributes=$_POST['Contact'];
                        
                         if(isset($_POST['businessCategory'])){
@@ -189,113 +200,72 @@ class ContactController extends Controller {
                             $model->isoLanguages = $lang_iso;
                         }
                         
-			if($model->save()){
-                            
-                            
-                       
                         
-                        ContactGeoCoverage::model()->deleteGeoCoverage($model->contact_id);
-                        ContactFunction::model()->deleteFunction($model->contact_id);
-                        RoleChannel::model()->deleteChannel($model->contact_id);
-                        
-                        for($i=1;$i<=$_POST['nbfield'];$i++){
-                        
-                            
-                            if(isset($_POST['company'.$i])){
-                                if(!empty($_POST['company'.$i]) && !empty($_POST['inputcountry'.$i]) && !empty($_POST['function'.$i])){
-                                $companies = $_POST['company'.$i];
-                                 
-
-                                    $countries = explode(',',$_POST['inputcountry'.$i]);
-                                    
-                                    
-                                    
-                                    foreach($countries as $c){
-                                        $cgc = new ContactGeoCoverage;                                       
-                                        $cgc->contact = $model->contact_id;
-                                        $cgc->company = $companies;
-                                        $cgc->geoCountry = $c;                              
-                                        $cgc->save();                                   
-
-                                    }
-                                    
-                                    $functions = explode(',', $_POST['function'.$i]);
-                                    
-                                    foreach($functions as $f){
-                                        $fun = new ContactFunction;
-                                        $fun->contact = $model->contact_id;
-                                        $fun->company = $companies;
-                                        $fun->function = $f;
-                                        $fun->save();                                   
-
-                                    }
-                                    
-                                    $channels = explode(',', $_POST['inputchannel'.$i]);
-                                        //echo $_POST['inputchannel'.$i];
-                                        
-                                        foreach($channels as $ch){
-                                        $rolechannel = new RoleChannel;
-                                        $rolechannel->contact = $model->contact_id;
-                                        $rolechannel->company = $companies;
-                                        $rolechannel->channel = $ch;
-                                        $rolechannel->save();                                   
-
-                                    }
-                                    
-                                }
-
+                        if(empty($_POST['Company']) && empty($_POST['companyfield'])){
+                            $id_company = 1;
+                        }
+                        else{
+                            if(!empty($_POST['Company'])){
+                                $id_company = $_POST['Company'];
                             }
-                            
+                            else{
+                                $company->comp_name = $_POST['companyfield'];
+                                $company->save(false);
+                                $id_company = $company->comp_id;
+                            }
                         }
-                        if(isset($_POST['freelanceactivity'])){
-                            $countries = explode(',',$_POST['countryfreelance']);
-
-                                    foreach($countries as $c){
-                                        $cgc = new ContactGeoCoverage;
-                                        $cgc->contact = $model->contact_id;
-                                        $cgc->company = 999999999;
-                                        $cgc->geoCountry = $c;
-                                        $cgc->save();                                   
-
-                                    }
-                                    $functions = explode(',', $_POST['functionfreelance']);
-
-                                    foreach($functions as $f){
+                        
+                        if(isset($_POST['Function'])){
+                            $functions = $_POST['Function'];
+                             foreach($functions as $f){
                                         $fun = new ContactFunction;
-                                        $fun->contact = $model->contact_id;
-                                        $fun->company = 999999999;
+                                        $fun->contact = $contact_id;
+                                        $fun->company = $id_company;
                                         $fun->function = $f;
                                         $fun->save();                                   
 
                                     }
-                                    
-                                    $channels = explode(',', $_POST['channelfreelance']);
-                                        
-                                    foreach($channels as $ch){
+                        }
+                        
+                        if(isset($_POST['Channel'])){
+                            $channels = $_POST['Channel'];
+                             foreach($channels as $ch){
                                         $rolechannel = new RoleChannel;
-                                        $rolechannel->contact = $model->contact_id;
-                                        $rolechannel->company = 999999999;
+                                        $rolechannel->contact = $contact_id;
+                                        $rolechannel->company = 1;
                                         $rolechannel->channel = $ch;
                                         $rolechannel->save();                                   
 
                                     }
                         }
+                        
+                        $countries = $_POST['country'];
+                        foreach($countries as $c){
+                            $cgc = new ContactGeoCoverage;
+                            $cgc->contact = $contact_id;
+                            $cgc->company = 1;
+                            $cgc->geoCountry = $c;
+                            $cgc->save();                                   
+                        }
+                        
+                        
+			if($model->save()){
                           $this->redirect(array('dashbord','id'=>$model->contact_id));  
                         }
-
-                        
+      
 		}
 
-                $categories = new BusinessCategory;
-                $iso_language = new IsoLanguage;
-                $company = new Company;
-                
                 $contact_id = Yii::app()->user->id;
-                $companyselected = ContactGeoCoverage::model()->findAllBySql(" select distinct(company_id) from contact_geo_coverage where contact_id = $contact_id and company_id <> 999999999");
-                $freelanceselected = ContactGeoCoverage::model()->findAllBySql(" select distinct(company_id) from contact_geo_coverage where contact_id = $contact_id and company_id = 999999999");
-                
-		 $this->render('update', array(
-            'model' => $model, 'categories'=>$categories, 'iso_language'=>$iso_language, 'company'=>$company, 'companyselected'=>$companyselected, 'contact_id'=>$contact_id,'freelanceselected'=>$freelanceselected
+                $companyselected = ContactFunction::model()->findAllBySql("select distinct(company_id) from contact_function where contact_id = $contact_id and company_id <> 1");
+                $functionselected = ContactFunction::model()->findAllBySql("select function_id from contact_function where contact_id = $contact_id ");
+                $channelselected = RoleChannel::model()->findAllBySql("select channel_id from role_channel where contact_id = $contact_id ");
+                $countiesselected = ContactGeoCoverage::model()->findAllBySql("select * from contact_geo_coverage where contact_id =  $contact_id");
+                //print_r($countiesselected);
+                $this->render('update', array(
+            'model' => $model, 'categories'=>$categories, 'iso_language'=>$iso_language, 'countiesselected'=>$countiesselected,
+                     'company'=>$company,'companyselected'=>$companyselected, 
+                     'channel'=>$channel, 'channelselected'=>$channelselected, 
+                     'function'=>$function, 'functionselected'=>$functionselected
         ));
     }
 

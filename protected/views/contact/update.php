@@ -3,112 +3,28 @@
 /* @var $model Contact */
 /* @var $form CActiveForm */
 ?>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.tokeninput.js"></script>
 
-<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/token-input.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/token-input-facebook.css" type="text/css" />
-<script>
-    function showMe(box) {
+<script type="text/javascript">
 
-        var chboxs = document.getElementById("freelanceactivity");
-        var vis = "none";
+function selectCheckbox(eventcheck,allcheckbox){
+
+
+        if ((document.getElementById(eventcheck).checked)) { // check select status
+//            
         
-            if (chboxs.checked) {
-                vis = "block";
-            }
-        document.getElementById(box).style.display = vis;
+            $('.'+allcheckbox).each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"               
+            });
+        } else {
+            $('.'+allcheckbox).each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+            });
+        }
+         
     }
-
-$("body").on("click", ".delete", function(e) {
-            $(this).closest("div").remove();
-        });
-
-$(document).ready(function() {
-
-$("#countryfreelance").tokenInput([
-<?php
-$country = IsoCountry::model()->FindCountyAfrica();
-
-foreach ($country as $value) {
-    echo '{id:"' . $value->country_iso . '", name:"' . $value->country_name . '"},';
-}
-?>
-        ], {theme: "facebook", preventDuplicates: true,
-            prePopulate: [
-                   <?php
-                        $countryselected = ContactGeoCoverage::model()->findAllBySql("select geo_country_id from contact_geo_coverage where contact_id = $contact_id and company_id = 999999999");
-                       if(count($countryselected)>0){
-                           foreach($countryselected as $countryvalue){
-                          $namecountry = IsoCountry::model()->findByPk($countryvalue->geo_country_id);
-                            echo  '{id:"'.$namecountry->country_iso.'", name:"'.$namecountry->country_name.'"},'; 
-                       }
-                       }
-                        
-                        
-  
-				   ?>
-                ]
-        });
-      
-        $("#functionfreelance").tokenInput([
-<?php
-$function = Functions::model()->findAll();
-
-foreach ($function as $value) {
-    echo '{id:' . $value->function_id . ', name:"' . $value->function_title . '"},';
-}
-?>
-        ], {theme: "facebook", preventDuplicates: true,
-            
-            prePopulate: [
-                   <?php
-                        $functionselected = ContactFunction::model()->findAllBySql("select function_id from contact_function where contact_id = $contact_id and company_id = 999999999");
-                       if(count($functionselected)>0){
-                          foreach($functionselected as $functionvalue){
-                          $namefunction = Functions::model()->findByPk($functionvalue->function_id);
-                            echo  '{id:'.$namefunction->function_id.', name:"'.$namefunction->function_title.'"},'; 
-                       } 
-                       }
-                        
-                        
-  
-				   ?>
-                ]
-            
-        });
-$("#channelfreelance").tokenInput([
-<?php
-$channel = Channel::model()->findAll();
-foreach ($channel as $value) {
-    echo '{id:' . $value->channel_id . ', name:"' . $value->channel_title . '"},';
-}
-?>
-        ], {theme: "facebook", preventDuplicates: true,
-            prePopulate: [
-                   <?php
-                        $channelselected = RoleChannel::model()->findAllBySql("select channel_id from role_channel where contact_id = $contact_id and company_id = 999999999");
-                       if(count($channelselected)>0){
-                        foreach($channelselected as $channelvalue){
-                          $namechannel = Channel::model()->findByPk($channelvalue->channel_id);
-                            echo  '{id:'.$namechannel->channel_id.', name:"'.$namechannel->channel_title.'"},'; 
-                       }
-                       }
-                       ?>
-                ]
-        });
-
-});
 
 </script>
-<style type="text/css">
-    ul.token-input-list-facebook {
-        width: 155px;
-    }
-</style>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/glyphicon.js"></script>
-<?php //require_once 'js/autocomplete.php'; ?>
-<div id="update"></div>
+
 
 <div class="last"><br><br>
     <div id="col-xs-12 col-md-8">
@@ -211,13 +127,55 @@ foreach ($channel as $value) {
                 </div>
                 
                 <div class="row">
+                   
+                    
+                <div class="form-group validating">
+                   <label class="col-sm-3 control-label">Company / Publisher name</label>
+                       <div class="col-sm-9">
+                    <?php
+ if(count($companyselected)>0){
+     $catselected = $companyselected;
+ foreach($catselected as $cat){
+    $selectedValues[$cat->company_id] = Array ( 'selected' => 'selected' );    
+ }
+ }                   
+ else{
+     $selectedValues = '';
+ }
+$datacompany = CHtml::listData(Company::model()->findAll('comp_id <> 1'), 'comp_id', 'comp_name');
+echo CHtml::activeDropDownList($company,'comp_id',
+                          $datacompany,
+                          array(
+                                'name'=>'Company',
+                                'class'=>'form-control',
+                                'title'=>"Company",
+                                 'style'=>'width:348px;',
+                                'options' => $selectedValues,
+                                          ));
+                    ?>
+                                        </div>
+                                    </div>
+                    
+                    
+                </div>
+                <div class="row">
+                    <div class="form-group"><br />If your company does'nt exist, write here</div>
+                    <div class="form-group">
+                        <label for="Contact_contact_name_ini" class="col-sm-3 control-label">Company / Publisher name</label>
+                        <div class="col-sm-5 col-sm-9">
+                            <input type="text" maxlength="255" id="Contact_contact_comany" name="Contact[company]" placeholder="Company" class="form-control">   
+                            </div>
+                    </div>
+                </div>
+                <div class="row col-sm-6">
 
                                     <div class="form-group validating">
                                         <label class="col-sm-3 control-label">Field of interest</label>
-                                            <div class="col-sm-5 col-sm-9">
+                                            <div class="col-sm-9">
                     <?php
  if(count($contact->businessCategories)>0){
      $catselected = $contact->businessCategories;
+       $selectedValues = array();
  foreach($catselected as $cat){
     $selectedValues[$cat->cat_id] = Array ( 'selected' => 'selected' );    
  }
@@ -225,7 +183,6 @@ foreach ($channel as $value) {
  else{
      $selectedValues = '';
  }
- 
 $datacategorie = CHtml::listData(BusinessCategory::model()->findAll(), 'cat_id', 'cat_title');
 echo CHtml::activeDropDownList($categories,'cat_id',
                           $datacategorie,
@@ -237,18 +194,49 @@ echo CHtml::activeDropDownList($categories,'cat_id',
                                 'options' => $selectedValues,
                                           ));
                     ?>
-                                        </div></div>
+                                        </div>
+                                    </div>
 
-                </div>   
+                </div>
 
-                <div class="row">
-
+                <div class="row col-sm-6">
+                     <div class="form-group validating">
+                                        <label class="col-sm-3 control-label">Position</label>
+                                            <div class="col-sm-9">
+                    <?php
+ if(count($functionselected)>0){
+       $selectedValues = array();
+     $catselected = $functionselected;
+ foreach($catselected as $cat){
+    $selectedValues[$cat->function_id] = Array ( 'selected' => 'selected' );    
+ }
+ }                   
+ else{
+     $selectedValues = '';
+ }
+$datafunction = CHtml::listData(Functions::model()->findAll(), 'function_id', 'function_title');
+echo CHtml::activeDropDownList($function,'function_id',
+                          $datafunction,
+                          array('multiple'=>'multiple',
+                                'name'=>'Function',
+                                'class'=>'form-control',
+                                'title'=>"Function",
+                                 'style'=>'height:120px;',
+                                'options' => $selectedValues,
+                                          ));
+                    ?>
+                                        </div>
+                                    </div>
+                </div>
+                
+ <div class="row col-sm-6">
  <div class="form-group validating">
-                                        <label class="col-sm-3 control-label">Language</label>
-                                            <div class="col-sm-5 col-sm-9">
+<label class="col-sm-3 control-label">Language</label>
+    <div class="col-sm-9">
                     <?php
  if(count($contact->isoLanguages)>0){
    $languageselected =   $contact->isoLanguages;
+     $selectedValues = array();
 foreach($languageselected as $lang){
     $selectedValues[$lang->lang_iso] = Array ( 'selected' => 'selected' );    
  }  
@@ -270,236 +258,87 @@ echo CHtml::activeDropDownList($iso_language,'lang_iso',
                                           ));
                     ?>
 
-</div></div>
-                </div> 
-
+</div>
+ </div>
+</div> 
                 
-                <button id="add" type="button" class="btn btn-info">Add Company</button>
-               
-                <div id="items">
-                 <?php $i=1; ?>   
-                <input type="hidden" name="nbfield" id="nbfield" value="<?php echo $i ?>" />
-                 <?php
-                 
-                foreach($companyselected as $valuecompany){
-                    ?>
-                
-                <script>    
-                document.getElementById('nbfield').value = <?php echo $i ?>;    
-                $(document).ready(function() {
-                 //when the Add Filed button is clicked
-        var i = <?php echo $i ?>;
-
-        /***Company Initial**/
-        $("#inputcompany" + <?php echo $i ?>).tokenInput([
-<?php
-$company = Company::model()->FindAllWithNofreelance();
-
-foreach ($company as $value) {
-    echo '{id:' . $value->comp_id . ', name:"' . $value->comp_name . '"},';
-}
-?>
-        ], {theme: "facebook", preventDuplicates: true, tokenLimit: 1,
-            
-            prePopulate: [
-                   <?php
-                   
-                       $namecompany = Company::model()->findByPk($valuecompany->company_id);
-                       echo  '{id:'.$namecompany->comp_id.', name:"'.$namecompany->comp_name.'"},';
-  
-				   ?>
-                ]
-            
-        });
-        
-        $("#inputcountry" + <?php echo $i ?>).tokenInput([
-<?php
-$country = IsoCountry::model()->FindCountyAfrica();
-
-foreach ($country as $value) {
-    echo '{id:"' . $value->country_iso . '", name:"' . $value->country_name . '"},';
-}
-?>
-        ], {theme: "facebook", preventDuplicates: true,
-            
-            prePopulate: [
-                   <?php
-                        $countryselected = ContactGeoCoverage::model()->findAllBySql("select geo_country_id from contact_geo_coverage where contact_id = $contact_id and company_id = $valuecompany->company_id");
-                       if(count($countryselected)>0){
-                          foreach($countryselected as $countryvalue){
-                          $namecountry = IsoCountry::model()->findByPk($countryvalue->geo_country_id);
-                            echo  '{id:"'.$namecountry->country_iso.'", name:"'.$namecountry->country_name.'"},'; 
-                       } 
-                       }
-                        
-                        
-  
-				   ?>
-                ]
-            
-        });
-       
-       
-        $("#inputfunction" + i).tokenInput([
-<?php
-$function = Functions::model()->findAll();
-
-foreach ($function as $value) {
-    echo '{id:' . $value->function_id . ', name:"' . $value->function_title . '"},';
-}
-?>
-        ], {theme: "facebook", preventDuplicates: true,
-            prePopulate: [
-                   <?php
-                        $functionselected = ContactFunction::model()->findAllBySql("select function_id from contact_function where contact_id = $contact_id and company_id = $valuecompany->company_id");
-                       if(count($functionselected)>0){
-                          foreach($functionselected as $functionvalue){
-                          $namefunction = Functions::model()->findByPk($functionvalue->function_id);
-                            echo  '{id:'.$namefunction->function_id.', name:"'.$namefunction->function_title.'"},'; 
-                       } 
-                       }
-                        
-                        
-  
-				   ?>
-                ]
-        });
-        
-        
-        $("#inputchannel" + i).tokenInput([
-<?php
-$channel = Channel::model()->findAll();
-
-foreach ($channel as $value) {
-    echo '{id:' . $value->channel_id . ', name:"' . $value->channel_title . '"},';
-}
-?>
-        ], {theme: "facebook", preventDuplicates: true,
-            prePopulate: [
-                   <?php
-                        $channelselected = RoleChannel::model()->findAllBySql("select channel_id from role_channel where contact_id = $contact_id and company_id = $valuecompany->company_id");
-                       if(count($channelselected)>0){
-                         foreach($channelselected as $channelvalue){
-                          $namechannel = Channel::model()->findByPk($channelvalue->channel_id);
-                            echo  '{id:'.$namechannel->channel_id.', name:"'.$namechannel->channel_title.'"},'; 
-                       }  
-                       }
-                        
-                       ?>
-                ]
-        });
-          });
-                </script>       
-                    <div class="table-responsive">
-                            
-                            <table class="table table-condensed">
-                                <tr><td style=" width: 20%;"><b>Company</b> 
-                                        <input type="text" name="company<?php echo $i ?>" id="inputcompany<?php echo $i ?>"></td>
-                                    <td style=" width: 20%;"><b>Country</b> <input type="text" name="inputcountry<?php echo $i ?>" id="inputcountry<?php echo $i ?>"></td>
-                                    <td><b>Functions</b> <input type="text" name="function<?php echo $i ?>" id="inputfunction<?php echo $i ?>"></td>
-                                    <td><b>Channels</b> <input type="text" name="inputchannel<?php echo $i ?>" id="inputchannel<?php echo $i ?>"></td>
-                                    <td><button class="delete btn btn-danger" type="button">Delete</button></td>
-                                </tr></table>
-                        </div>
+                 <div class="row col-sm-6">
+                    
+                     
+                     <div class="form-group validating">
+                                        <label class="col-sm-3 control-label">Media Type</label>
+                                            <div class="col-sm-9">
                     <?php
-                    $i++;
-                }
-                ?>
-                
-                
-                <script>
-               var i=<?php echo $i; ?>    
-                $("#add").click(function(e) {
-            document.getElementById('nbfield').value = i;
-           
-            //Append a new row of code to the "#items" div
-            $("#items").append('<div class="table-responsive"><table class="table table-condensed"><tr><td><b>Company</b><input type="text" name="company'+i+'" id="inputcompany'+i+'"></td><td><b>Country</b><input type="text" name="inputcountry'+i+'" id="inputcountry'+i+'"></td><td><b>Functions</b><input type="text" name="function'+i+'" id="inputfunction'+i+'"></td><td><b>Channel</b><input type="text" name="inputchannel'+i+'" id="inputchannel'+i+'"></td><td><br><button class="delete btn btn-danger" type="button">Delete</button></td></tr></table></div>');
+                    
+ if(count($channelselected)>0){
+     $catselected = $channelselected;
+     $selectedValues = array();
+     foreach($catselected as $cat){
+     
+    $selectedValues[$cat->channel_id] = Array ( 'selected' => 'selected' );    
+ }
+ 
+ }                   
+ else{
+     $selectedValues = '';
+ }
+ //echo count($selectedValues);
 
-            $("#inputcompany" + i).tokenInput([
-<?php
-$company = Company::model()->FindAllWithNofreelance();
-if(count($company)>0){
-   foreach ($company as $value) {
-    echo '{id:' . $value->comp_id . ', name:"' . $value->comp_name . '"},';
-} 
-}
-
-?>
-            ], {theme: "facebook", preventDuplicates: true, tokenLimit: 1
-            });
-
-
-
-            $("#inputcountry" + i).tokenInput([
-<?php
-if(count($country)>0){
-foreach ($country as $value) {
-    echo '{id:"' . $value->country_iso . '", name:"' . $value->country_name . '"},';
-}
-}
-?>
-            ], {theme: "facebook", preventDuplicates: true,
-            });
-
-            $("#inputfunction" + i).tokenInput([
-<?php
-if(count($function)>0){
-foreach ($function as $value) {
-    echo '{id:' . $value->function_id . ', name:"' . $value->function_title . '"},';
-}
-}
-?>
-            ], {theme: "facebook", preventDuplicates: true,
-            });
-            
-            
-            $("#inputchannel" + i).tokenInput([
-<?php
-if(count($channel)>0){
-foreach ($channel as $value) {
-    echo '{id:' . $value->channel_id . ', name:"' . $value->channel_title . '"},';
-}
-}
-?>
-            ], {theme: "facebook", preventDuplicates: true,
-            });
-            i++;
-        });
-                
-                </script>
-                
-                
-                </div>
-                <br /><br />
-               <div class="row">
-
-                    <div class="col-sm-5 col-sm-9">
-                        <input type="checkbox" onclick="showMe('div1')" name="freelanceactivity" id="freelanceactivity" value="freelance" class="inputradio" <?php if(count($freelanceselected)>0){  ?>checked="checked" <?php } ?> /><label>Freelance Activity?</label> 
-                    </div>
+$datachannel = CHtml::listData(Channel::model()->findAll(), 'channel_id', 'channel_title');
+echo CHtml::activeDropDownList($channel,'channel_id',
+                          $datachannel,
+                          array('multiple'=>'multiple',
+                                'name'=>'Channel',
+                                'class'=>'form-control',
+                                'title'=>"Channel",
+                                 'style'=>'height:120px;',
+                                'options' => $selectedValues,
+                                          ));
+                    ?>
+                                        </div>
+                                    </div>
+                     
+                     
                 </div>
                 
                 <div class="row">
-                 <?php if(count($freelanceselected)>0){$style='';}else{$style='style="display:none"';} ?>   
-                <div id="div1" <?php echo $style ?>>
-                    
-                     <div>
-                        <div class="table-responsive">
-                           
-                            <table class="table table-condensed">
+                            <table width="100%">
+                                <tr><td><label><input style="" type="checkbox"  id="selectall" value="" name="allcountry" onClick="selectCheckbox('selectall','checkboxcountry')" />&nbsp;Select All</label></td></tr>
                                 <tr>
-                                    <td style=" width: 33%;"><b>Country</b> <input type="text" name="countryfreelance" id="countryfreelance"></td>
-                                    <td><b>Functions</b> <input type="text" name="functionfreelance" id="functionfreelance"></td>
-                                    <td align="left"><b>Channel</b> <input type="text" name="channelfreelance" id="channelfreelance"></td>
-                                </tr></table>
-                        </div>
-                    </div>
+                    <?php
+                    $georegion = GeoRegion::model()->GeoRegionAfrica();
+                    $i=0;
                     
-                </div>
+                    foreach($georegion as $value){
+                        echo '<td valign="top" style="vertical-align:top;">
+                            <label>
+                        <input id="selectregion'.$i.'" class="checkboxcountry" onClick="selectCheckbox(\'selectregion'.$i.'\',\'checkbox'.$i.'\')" style="float:left; margin-right:5px"  type="checkbox" value="'.$value->geo_region_id.'" name="georegion[]" />
+                            '.$value->region_name.'</label>';
+                        $country = IsoCountry::model()->FindCountyByGeeoRegion($value->geo_region_id);
+                        echo '<br />';
+                        
+                        foreach($country as $c){
+                            $selected='';
+                            $j=0;
+                            $t=0;
+                            while($j<count($countiesselected) && $t==0){    
+                                if($countiesselected[$j]->geo_country_id == $c->country_iso){
+                                    $selected = "checked='checked'";
+                                    $t=1;
+                                }
+                                $j++;
+                            }
+                            echo '<label style="font-weight:normal;">
+                                <input '.$selected.' style="" type="checkbox" class="checkboxcountry checkbox'.$i.'" value="'.$c->country_iso.'" name="country[]" />
+                                &nbsp;&nbsp;'.$c->country_name.'</label>';
+                        }
+                        echo '</td>';
+                        $i++;
+                    }
+                    ?>
+                             </tr></table>
                 </div>
                 
-                
-
-            </div>
         </div>
     </div>
 
@@ -546,7 +385,12 @@ foreach ($channel as $value) {
                     <?php echo $form->error($model, 'contact_address_addon'); ?>
                 </div>
 
+                
+                
 
+                </div>                
+               
+                
 
 
                 <div class="row">

@@ -4,8 +4,26 @@ $this->breadcrumbs = array(
     UserModule::t("Registration"),
 );
 ?>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/glyphicon.js"></script>
-<h1><?php echo UserModule::t("Registration"); ?></h1>
+<script type="text/javascript" >
+$(document).ready(function() {
+$( ".facebook" ).empty();
+$( ".twitter" ).empty();
+$("#Company_comp_id").click(function() {
+    document.getElementById("Contact_contact_comany").value = '';
+  document.getElementById("Contact_contact_comany").readOnly = true;
+});
+$("#Contact_contact_comany").keypress(function() {
+  $("#s2id_Company_comp_id").children().attr('disabled', true);
+  //alert('aaa');
+});
+});
+</script>
+
+<style type="text/css">
+    .facebook{ width:50px;}
+    .twitter{ width:50px; position: absolute; top:-63px; left: 32%;}
+</style>
+<h1><?php echo UserModule::t("I register as a journalist"); ?></h1>
 
 <?php if (Yii::app()->user->hasFlash('registration')): ?>
     <div class="success">
@@ -31,6 +49,15 @@ $this->breadcrumbs = array(
                 )
         )
         ?>  </span>
+
+        <div class="span-8 journalist" style="clear: both; margin: 0 34%;">
+            <div >
+  
+             <div >
+                    <?php $this->widget('ext.hoauth.widgets.HOAuth'); ?>    
+                </div>
+            </div> </div>
+<div style="font-size: 18px; font-weight: bold; text-align: center; color: #000; margin-bottom: 10px;" class="col-sm-10">Or Classical sign up</div><br />
     <div class="form col-sm-10">
         <?php
     $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
@@ -50,11 +77,19 @@ $this->breadcrumbs = array(
     ?>
 
         <p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
-
+        
+        
+        
         <?php  echo $form->errorSummary(array($model, $contact));  ?>
 
         <div class="panel panel-footer">
             <div class="panel-heading">
+                
+                
+        
+
+   
+                
                 <!--<h4 class="panel-title">-->
                 <div id="Heading-Advert" data-toggle="collapse" class="btn btn-primary accordion-heading"data-parent="#accordion" href="#Advert">
 

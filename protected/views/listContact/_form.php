@@ -341,19 +341,14 @@ document.getElementById("ListContact_list_id").disabled = true;
         </div>
     ///////////////////////////-->
 <div class="row">
-<div class="buttons col-md-3 col-md-offset-3">
-    <?php
-    $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'id'=>"createButton",'size' => 'large', 'context' => 'success', 'label' => Yii::t('app','Create'))
-    );
-    ?>
-</div>
+
 
 
 
 
 <div class=" buttons pull-right">
     <?php
-    $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit','id'=>"updateButton", 'size' => 'large', 'context' => 'success', 'label' => Yii::t('app','Update'))
+    $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit','id'=>"updateButton", 'size' => 'large', 'context' => 'success', 'label' => Yii::t('app','Create / Update'))
     );
     ?>
 </div>

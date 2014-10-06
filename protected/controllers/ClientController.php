@@ -31,7 +31,7 @@ class ClientController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('dashbord','increaseCredit','calculateprice','myfinancials', 'confirmbuycredits', 'cancelbuycredits', 'buycredits', 'cancel', 'confirm', 'buy', 'extendmembership', 'view', 'update', 'blacklist', 'blacklistchoice', 'allblacklistchoice', 'removeallblacklistchoice', 'removeblacklistchoice'),
+                'actions' => array('dashbord','increaseCredit','calculateprice','myfinancials', 'confirmbuycredits', 'cancelbuycredits', 'buycredits', 'cancel', 'confirm', 'buy', 'extendmembership', 'view', 'update', 'blacklist'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -55,72 +55,28 @@ class ClientController extends Controller {
     }
 
     public function actionBlacklist() {
-
-        if (isset($_POST['client_id_black'])) {
-            $blackclients = Contact::model()->findByPk(Yii::app()->user->id);
-            $client_id = $_POST['client_id_black'];
-            $blackclients->users = $client_id;
+        
+        $blackclients = Contact::model()->findByPk(Yii::app()->user->id);
+        if (isset($_POST['yt0'])) {
+            
+            if(isset($_POST['client_id_black'])){
+                $client_id = $_POST['client_id_black'];
+                $blackclients->users = $client_id;
+            }
+            else{
+                $client_id = array();
+                $blackclients->users = $client_id;
+            }
+            
             $blackclients->save();
         }
         $blackclients = Contact::model()->findByPk(Yii::app()->user->id);
-        $clients = Client::model()->findAll();
-        //print_r($clients);
         $user = $blackclients->users;
-        // print_r($user);
-        $this->render('/Client/blacklist', array('clients' => $clients, 'user' => $user));
+        $cleanclients = Client::model()->CleanClient($user);
+        
+        $this->render('/Client/blacklist', array('clients' => $cleanclients, 'user' => $user));
     }
 
-    public function actionBlacklistchoice() {
-        $source = $_GET['source'];
-        $destination = $_GET['destination'];
-        $tabsource = explode(',', $source);
-        $tabdestination = explode(',', $destination);
-        $tab = array_merge($tabsource, $tabdestination);
-        $final = array_unique($tab);
-        echo '<select size="15" multiple name="client_id_black[]" class="form-control" onchange="Remove_Removeall()" id="tagUpdate">';
-        foreach ($final as $value) {
-            if ($value != '') {
-                $element = Client::model()->FindByPk($value);
-                $name = $element->porfile_name_first . ' ' . $element->porfile_name_last;
-                echo ' <option  selected value ="' . $value . '" >' . $name . '</option>';
-            }
-        }
-        echo '</select>';
-    }
-
-    public function actionAllblacklistchoice() {
-        $source = $_GET['source'];
-        $tabsource = explode(',', $source);
-        //print_r($tabsource);
-        echo '<select size="15" multiple name="client_id_black[]" class="form-control" onchange="Remove_Removeall()" id="tagUpdate">';
-        foreach ($tabsource as $value) {
-            if ($value != '') {
-                $element = Client::model()->FindByPk($value);
-                $name = $element->porfile_name_first . ' ' . $element->porfile_name_last;
-                echo ' <option selected   value ="' . $value . '" >' . $name . '</option>';
-            }
-        }
-        echo '</select>';
-    }
-
-    public function actionRemoveallblacklistchoice() {
-        echo '<select size="15" multiple name="client_id_black[]" class="form-control" onchange="Remove_Removeall()" id="tagUpdate">';
-        echo '</select>';
-    }
-
-    public function actionRemoveblacklistchoice() {
-        $destination = $_GET['destination'];
-        $tabdestination = explode(',', $destination);
-        echo '<select size="15" multiple name="client_id_black[]" class="form-control" onchange="Remove_Removeall()" id="tagUpdate">';
-        foreach ($tabdestination as $value) {
-            if ($value != '') {
-                $element = Client::model()->FindByPk($value);
-                $name = $element->porfile_name_first . ' ' . $element->porfile_name_last;
-                echo ' <option  selected value ="' . $value . '" >' . $name . '</option>';
-            }
-        }
-        echo '</select>';
-    }
 
     /**
      * Creates a new model.

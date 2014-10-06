@@ -57,8 +57,8 @@ class Functions extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'function_id' => 'Function',
-			'function_title' => 'Function Title',
+			'function_id' => 'Position',
+			'function_title' => 'Position',
 		);
 	}
 

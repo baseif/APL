@@ -184,4 +184,6 @@ class Contact extends CActiveRecord
             ),
         );
     }
+    
+    
 }

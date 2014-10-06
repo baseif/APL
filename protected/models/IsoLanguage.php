@@ -31,6 +31,7 @@ class IsoLanguage extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+                    array('lang_iso, language', 'required'),
 			array('lang_iso', 'length', 'max'=>4),
 			array('language, Native_language', 'length', 'max'=>255),
 			// The following rule is used by search().
